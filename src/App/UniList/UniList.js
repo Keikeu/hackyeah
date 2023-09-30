@@ -17,15 +17,15 @@ function UniList() {
         <Results />
         <Map universities={[
             {
-            "position": [51.505, -0.09],
+            "position": [50.06143, 19.93658],
                 "name": "Fajna nazwa Uni 1 "
             },
             {
-             "position": [51.507, -0.09],
+             "position": [50.06243, 19.93658],
                 "name": "Fajna nazwa Uni 2 "
             },
             {
-                "position": [51.509, -0.09],
+                "position": [50.06343, 19.93658],
                 "name": "Fajna nazwa Uni 3 "
             }
         ]}/>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import T from "prop-types";
 import styled from "styled-components/macro";
 
@@ -12,10 +12,26 @@ const Box = styled.div`
 `;
 
 function Map({ className, universities }) {
-  const position = [51.505, -0.09];
+  const position = [50.06143, 19.93658];
+  const [userLocation, setUserLocation] = useState({lat:50.06143, lng: 19.93658});
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+          setUserLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          });
+        },
+        (error) => {
+          console.error('Error getting user location:', error);
+        });
+  }, []);
   return (<Box className={className}>
-    <MapContainer  center={position} zoom={12} >
+    <div>
+      <p>Latitude: {userLocation.lat}</p>
+      <p>Longitude: {userLocation.lng}</p>
+    </div>
+    <MapContainer  center={(userLocation && [userLocation.lat, userLocation.lng]) || position} zoom={12} >
       <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=oe69RYYnrr6UsgG1XbmVkHMlBtWBvQhqKQHG61ZIcECAXRVgS1dCOCpeCdGx654i"
