@@ -7,7 +7,6 @@ import Results from "./Results";
 import Map from "./Map";
 import callApi from "commons/util/callApi";
 import Navigation from "App/Navigation";
-import { results as mockResults } from "commons/util/constants";
 
 const Box = styled.div``;
 
@@ -18,8 +17,13 @@ function UniList() {
   const [universities, setUniversities] = useState([]);
   const [onlyFavorites, setOnlyFavorites] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  console.log(universities);
+
   useEffect(() => {
     async function getUniversities() {
+      setIsLoading(true);
       const res = await callApi("search/universities", "post", {
         searchString,
         location,
@@ -27,12 +31,9 @@ function UniList() {
         isFavourite: onlyFavorites,
       });
 
-      console.log(universities);
       setUniversities(res);
-      console.log(res);
+      setIsLoading(false);
     }
-
-    setUniversities(mockResults);
 
     getUniversities();
   }, [searchString, location, categoryList, onlyFavorites]);
@@ -49,16 +50,19 @@ function UniList() {
       <Flexbox padding="16px 32px">
         <Filters />
         <Results
+          isLoading={isLoading}
           results={universities}
           onlyFavorites={onlyFavorites}
           setOnlyFavorites={setOnlyFavorites}
         />
         <Map
-            universities={universities.filter(uni => uni.coordinates).map(uni => {
-                return {
-                    position: [uni.coordinates.latitude, uni.coordinates.longitude],
-                    name: uni.name
-                }
+          universities={universities
+            .filter((uni) => uni.coordinates)
+            .map((uni) => {
+              return {
+                position: [uni.coordinates.latitude, uni.coordinates.longitude],
+                name: uni.name,
+              };
             })}
         />
       </Flexbox>

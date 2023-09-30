@@ -21,14 +21,14 @@ const Box = styled(Flexbox)`
     background-color: var(--${color}-100);
   `}
 
-  ${({ hasIcon }) =>
-    hasIcon &&
+  ${({ $hasIcon }) =>
+    $hasIcon &&
     css`
       padding-right: 8px;
     `}
 
-  ${({ isCompact }) =>
-    isCompact &&
+  ${({ $isCompact }) =>
+    $isCompact &&
     css`
       width: 20px;
       height: 20px;
@@ -38,10 +38,14 @@ const Box = styled(Flexbox)`
 `;
 
 function Tag({ className, icon, label, color, isCompact = false }) {
-  const iconNode = icon && <TagIcon name={icon} size={isCompact ? 16 : 18} color="neutral-200" />;
+  const iconNode = icon && (
+    <TagIcon name={icon} size={isCompact ? 16 : 18} color="neutral-200" />
+  );
 
   const labelNode = <Typography variant="label">{label}</Typography>;
-  const shortLabelNode = <Typography variant="label">{label?.slice(0, 1)}</Typography>;
+  const shortLabelNode = (
+    <Typography variant="label">{label?.slice(0, 1)}</Typography>
+  );
 
   const commonProps = {
     className,
@@ -49,8 +53,8 @@ function Tag({ className, icon, label, color, isCompact = false }) {
     gap: 4,
     alignItems: "center",
     justifyContent: "center",
-    isCompact,
-    hasIcon: !!icon,
+    $isCompact: isCompact,
+    $hasIcon: !!icon,
   };
 
   return (

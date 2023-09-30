@@ -5,7 +5,7 @@ import Flexbox from "../Flexbox";
 
 const Container = styled(Flexbox)`
   width: 100%;
-  height: ${({ containerHeight }) => containerHeight};
+  height: ${({ $containerHeight }) => $containerHeight};
 `;
 
 const Ripple = styled.div`
@@ -35,9 +35,18 @@ const Ripple = styled.div`
   }
 `;
 
-function Loader({ className, color = "primary-100", containerHeight = "40px" }) {
+function Loader({
+  className,
+  color = "primary-100",
+  containerHeight = "40px",
+}) {
   return (
-    <Container className={className} containerHeight={containerHeight} justifyContent="center" alignItems="center">
+    <Container
+      className={className}
+      $containerHeight={containerHeight}
+      justifyContent="center"
+      alignItems="center"
+    >
       <Ripple color={color} />
       <Ripple color={color} />
     </Container>
