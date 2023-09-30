@@ -15,7 +15,7 @@ function Map({ className, universities }) {
   const position = [51.505, -0.09];
 
   return (<Box className={className}>
-    <MapContainer  center={position} zoom={12} scrollWheelZoom={false}>
+    <MapContainer  center={position} zoom={12} >
       <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=oe69RYYnrr6UsgG1XbmVkHMlBtWBvQhqKQHG61ZIcECAXRVgS1dCOCpeCdGx654i"
