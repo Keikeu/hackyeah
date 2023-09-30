@@ -11,19 +11,25 @@ const Box = styled.div`
   background-color: var(--neutral-190);
 `;
 
-function Map({ className }) {
+function Map({ className, universities }) {
   const position = [51.505, -0.09];
+
   return (<Box className={className}>
     <MapContainer  center={position} zoom={12} scrollWheelZoom={false}>
       <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=oe69RYYnrr6UsgG1XbmVkHMlBtWBvQhqKQHG61ZIcECAXRVgS1dCOCpeCdGx654i"
       />
-      <Marker position={position}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
+      {universities.map(uni => {
+        return (
+            <Marker position={uni.position}>
+              <Popup>
+                {uni.name}
+              </Popup>
+            </Marker>
+        )
+      })}
+
     </MapContainer>
 
   </Box>);
