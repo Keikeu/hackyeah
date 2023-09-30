@@ -7,7 +7,7 @@ import Filter from "./Filter";
 import { filterStructure } from "commons/util/constants";
 
 const Box = styled.div`
-  width: 346px;
+  width: 360px;
   flex-shrink: 0;
   padding-right: 16px;
 `;
@@ -21,14 +21,24 @@ function Filters({ className }) {
   const [filters, setFilters] = useState({});
 
   async function updateFilters(id, value) {
-    const newPreferences = { ...filters, [id]: value };
+    let newValue;
+
+    if (!filters[id]) {
+      newValue = [value];
+    } else if (filters[id].includes(value)) {
+      newValue = filters[id].filter((filterId) => filterId !== value);
+    } else {
+      newValue = [...filters[id], value];
+    }
+
+    const newPreferences = { ...filters, [id]: newValue };
     setFilters(newPreferences);
   }
 
   return (
     <Box className={className}>
       <Typography variant="h3">Filtry</Typography>
-      <FlexboxStyled flexDirection="column" gap={8} marginTop={24} isBordered>
+      <FlexboxStyled flexDirection="column" gap={8} marginTop={16} isBordered>
         {filterStructure.map((el) => (
           <Filter
             {...el}

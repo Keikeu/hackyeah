@@ -100,8 +100,8 @@ const Box = styled.div`
       }
     `}
 
-  ${({ isShell }) =>
-    isShell &&
+  ${({ $isShell }) =>
+    $isShell &&
     css`
       cursor: pointer;
     `}
@@ -250,7 +250,7 @@ function InputBase({
           {label}
         </Label>
       )}
-      <Box $hasError={hasError} isSuccess={isSuccess} isShell={isShell}>
+      <Box $hasError={hasError} isSuccess={isSuccess} $isShell={isShell}>
         {leftIcon && <LeftIcon onClick={onLeftIconClick} name={leftIcon} />}
 
         {!isTextarea && !isShell && <Field {...commonProps} />}

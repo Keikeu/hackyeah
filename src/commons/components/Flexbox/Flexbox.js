@@ -36,7 +36,7 @@ function formatValue(value) {
 }
 
 function calculateSpacingValue(
-  spacing,
+  spacing = 0,
   spacingTop,
   spacingRight,
   spacingBottom,
@@ -44,11 +44,11 @@ function calculateSpacingValue(
   spacingX,
   spacingY
 ) {
-  if (spacing && spacing.includes(" ")) {
+  if (spacing && typeof spacing === "string" && spacing.includes(" ")) {
     return spacing;
   }
 
-  const spacingArray = new Array(4).fill(spacing || 0);
+  const spacingArray = new Array(4).fill(formatValue(spacing));
 
   if (spacingTop !== undefined) {
     spacingArray[0] = formatValue(spacingTop);

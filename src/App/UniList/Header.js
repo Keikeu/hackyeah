@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import T from "prop-types";
-import styled from "styled-components/macro";
-import Button from "commons/components/Button";
+import styled, { css } from "styled-components/macro";
 import Flexbox from "commons/components/Flexbox";
 import Icon from "commons/components/Icon";
-import TextInput from "commons/components/TextInput";
 import Typography from "commons/components/Typography";
 import { categories } from "commons/util/constants";
+import Modal from "commons/components/Modal";
+import Button from "commons/components/Button";
+import SelectInput from "commons/components/SelectInput";
+import NumberInput from "commons/components/NumberInput";
 
 const Box = styled(Flexbox)`
   padding: 14px 32px;
@@ -15,11 +17,7 @@ const Box = styled(Flexbox)`
 `;
 
 const FlexboxStyled = styled(Flexbox)`
-  width: 100%;
-`;
-
-const SearchInput = styled(TextInput)`
-  min-width: 100px;
+  /* width: 100%; // @Karcia ? */
 `;
 
 const Circle = styled(Flexbox)`
@@ -52,7 +50,7 @@ const Circle = styled(Flexbox)`
 const Category = styled(Flexbox)`
   cursor: pointer;
   text-align: center;
-  width: 72px;
+  width: 100%;
 
   &:hover {
     color: var(--neutral-90);
@@ -112,45 +110,114 @@ const Category = styled(Flexbox)`
       background-color: var(--pink-100);
     }
   }
+
+  ${({ $isActive, $shouldHighlightActive }) =>
+    $shouldHighlightActive &&
+    !$isActive &&
+    css`
+      ${Circle} {
+        background-color: var(--neutral-170) !important;
+      }
+    `}
 `;
 
 const CategoryIcon = styled(Icon)`
   font-size: 20px;
 `;
 
-function Header({ className }) {
+const ModalStyled = styled(Modal)`
+  max-width: 640px;
+  max-height: 640px;
+`;
+
+const NumberInputStyled = styled(NumberInput)`
+  width: 200px;
+`;
+
+function Header({ className, categoryList, setCategoryList }) {
+  const [showModal, setShowModal] = useState(false);
+  const [results, setResults] = useState([
+    { id: 0, subject: "", percentage: "" },
+  ]);
+
+  function toggleCategory(id) {
+    if (categoryList.includes(id)) {
+      setCategoryList(categoryList.filter((categoryId) => categoryId !== id));
+    } else {
+      setCategoryList([...categoryList, id]);
+    }
+  }
+
   return (
-    <Box className={className} justifyContent="space-between" gap={24}>
-      <FlexboxStyled alignItems="flex-start" gap={24}>
-        <SearchInput value="" placeholder="Szukaj" icon="search" />
-        <Button variant="tertiary" size="medium" icon="location_on">
-          <Flexbox alignItems="center" gap={4}>
-            Lokalizacja <Icon name="expand_more" />
-          </Flexbox>
+    <>
+      <Box className={className} justifyContent="space-between" gap={24}>
+        <FlexboxStyled gap={24}>
+          {categories.map((category) => (
+            <Category
+              key={category.id}
+              flexDirection="column"
+              alignItems="center"
+              gap={4}
+              onClick={() => toggleCategory(category.id)}
+              $shouldHighlightActive={categoryList.length > 0}
+              $isActive={categoryList.includes(category.id)}
+            >
+              <Circle>
+                <CategoryIcon name={category.icon} />
+              </Circle>
+              <Typography variant="label">{category.label}</Typography>
+            </Category>
+          ))}
+        </FlexboxStyled>
+        <Button onClick={() => setShowModal(true)}>
+          Moje wyniki maturalne
         </Button>
-      </FlexboxStyled>
-      <Flexbox gap={24}>
-        {categories.map((category) => (
-          <Category
-            key={category.id}
-            flexDirection="column"
-            alignItems="center"
-            gap={4}
-            onClick={() => console.log(category.id)}
-          >
-            <Circle>
-              <CategoryIcon name={category.icon} />
-            </Circle>
-            <Typography variant="label">{category.label}</Typography>
-          </Category>
-        ))}
-      </Flexbox>
-    </Box>
+      </Box>
+
+      {showModal && (
+        <ModalStyled handleClose={() => setShowModal(false)}>
+          <Flexbox flexDirection="column" padding={40}>
+            <Typography variant="h3">Wyniki maturalne</Typography>
+            <Flexbox alignItems="flex-end" marginY={24} gap={16}>
+              {results.map((result) => (
+                <React.Fragment key={result.id}>
+                  <SelectInput
+                    label="Przedmiot"
+                    placeholder="Wybierz przedmiot"
+                    options={[{ id: "matematyka", label: "Matematyka" }]}
+                    value={result.subject}
+                    onChange={() => {}}
+                  />
+                  <NumberInputStyled
+                    label="Twój wynik"
+                    rightIcon="percent"
+                    value={result.percentage}
+                    min={0}
+                    max={100}
+                  />
+                  <Button variant="tertiary" icon="delete" size="medium" />
+                </React.Fragment>
+              ))}
+            </Flexbox>
+            <Button variant="secondary" icon="add">
+              Dodaj wynik
+            </Button>
+          </Flexbox>
+          <Button>Zapisz</Button>
+        </ModalStyled>
+      )}
+    </>
   );
 }
 
 Header.propTypes = {
   className: T.string,
+  searchString: T.string,
+  setSearchString: T.func,
+  categoryList: T.arrayOf(T.string),
+  setCategoryList: T.func,
+  location: T.string,
+  setLocation: T.func,
 };
 
 export default Header;

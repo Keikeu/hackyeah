@@ -5,10 +5,20 @@ import TextInput from "commons/components/TextInput";
 import Popover from "commons/components/Popover";
 import OptionList from "commons/components/OptionList";
 
-const Box = styled.div``;
+const Box = styled.div`
+  width: 100%;
+`;
 
-function SelectInput({ className, label, placeholder, value, onChange, options = [], errorMessage }) {
-  const selectedItemLabel = options.find(el => el.id === value)?.label || "";
+function SelectInput({
+  className,
+  label,
+  placeholder,
+  value,
+  onChange,
+  options = [],
+  errorMessage,
+}) {
+  const selectedItemLabel = options.find((el) => el.id === value)?.label || "";
 
   return (
     <Box className={className}>
@@ -23,8 +33,13 @@ function SelectInput({ className, label, placeholder, value, onChange, options =
             isShell
           />
         }
-        content={closePopover => (
-          <OptionList options={options} selectedOptionId={value} onChange={onChange} closePopover={closePopover} />
+        content={(closePopover) => (
+          <OptionList
+            options={options}
+            selectedOptionId={value}
+            onChange={onChange}
+            closePopover={closePopover}
+          />
         )}
         isFullWidth
         isTriggerTabbable

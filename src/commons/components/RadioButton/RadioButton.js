@@ -2,6 +2,7 @@ import React from "react";
 import T from "prop-types";
 import styled, { css } from "styled-components/macro";
 import Flexbox from "../Flexbox";
+import Icon from "../Icon";
 
 const Circle = styled.div`
   position: relative;
@@ -16,24 +17,21 @@ const Circle = styled.div`
     css`
       background-color: var(--primary-100);
       border: none;
-
-      &:after {
-        content: "";
-        position: absolute;
-        top: 6px;
-        left: 6px;
-        width: 8px;
-        height: 8px;
-        background-color: var(--neutral-200);
-        border-radius: 50%;
-      }
     `}
+`;
+
+const Check = styled(Icon)`
+  position: absolute;
+  top: -2px;
+  left: -2px;
 `;
 
 function RadioButton({ className, label, isActive, onClick }) {
   return (
     <Flexbox className={className} gap={12} onClick={onClick}>
-      <Circle $isActive={isActive} />
+      <Circle $isActive={isActive}>
+        {isActive && <Check size={25} name="check" color="neutral-200" />}
+      </Circle>
       {label}
     </Flexbox>
   );
