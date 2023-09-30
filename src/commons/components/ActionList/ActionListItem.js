@@ -66,7 +66,17 @@ const ConfirmationBox = styled.div`
   padding: 16px;
 `;
 
-function ActionListItem({ className, id, icon, label, subActions = [], variant = "default", disabled, onClick, link }) {
+function ActionListItem({
+  className,
+  id,
+  icon,
+  label,
+  subActions = [],
+  variant = "default",
+  disabled,
+  onClick,
+  link,
+}) {
   const [clickableElement, setClickableElement] = useState();
   useEnterKeyPress(clickableElement, onClick);
   const hasNextLevel = !!subActions.length;
@@ -98,11 +108,20 @@ function ActionListItem({ className, id, icon, label, subActions = [], variant =
       {variant === "default" && !hasNextLevel && (
         <>
           {link ? (
-            <LinkBox {...commonProps} onClick={() => onClick(id)} to={link} ref={setClickableElement}>
+            <LinkBox
+              {...commonProps}
+              onClick={() => onClick(id)}
+              to={link}
+              ref={setClickableElement}
+            >
               {content}
             </LinkBox>
           ) : (
-            <Box {...commonProps} onClick={e => onClickProxy(e, id)} ref={setClickableElement}>
+            <Box
+              {...commonProps}
+              onClick={(e) => onClickProxy(e, id)}
+              ref={setClickableElement}
+            >
               {content}
             </Box>
           )}
@@ -118,31 +137,33 @@ function ActionListItem({ className, id, icon, label, subActions = [], variant =
       {variant === "destructive" && (
         <Popover
           trigger={<Box {...commonProps}>{content}</Box>}
-          content={closePopover => {
+          content={(closePopover) => {
             return (
               <ConfirmationBox>
                 <Typography variant="h4" margin="0 0 8px 0">
-                  Are you sure?
+                  Jesteś pewny(-a)?
                 </Typography>
-                <Typography variant="label">This action cannot be undone.</Typography>
+                <Typography variant="label">
+                  Tej akcji nie da się cofnąć.
+                </Typography>
                 <Flexbox margin="16px 0 0 0" gap={8}>
                   <Button
                     variant="tertiary"
-                    onClick={e => {
+                    onClick={(e) => {
                       e.preventDefault();
                       closePopover(e);
                     }}
                   >
-                    Cancel
+                    Anuluj
                   </Button>
                   <Button
-                    onClick={e => {
+                    onClick={(e) => {
                       onClickProxy(e, id);
                       closePopover();
                     }}
                     ref={setClickableElement}
                   >
-                    Yes, {label}
+                    Tak, {label}
                   </Button>
                 </Flexbox>
               </ConfirmationBox>

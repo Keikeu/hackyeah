@@ -78,8 +78,8 @@ const Box = styled.div`
     border: 1px solid var(--primary-140);
   }
 
-  ${({ hasError }) =>
-    hasError &&
+  ${({ $hasError }) =>
+    $hasError &&
     css`
       border: 1px solid var(--red-100) !important;
 
@@ -121,7 +121,7 @@ const fieldStyle = css`
   line-height: 20px;
   color: var(--neutral-100);
 
-  ::placeholder {
+  &::placeholder {
     color: var(--neutral-160);
   }
 `;
@@ -241,11 +241,16 @@ function InputBase({
   return (
     <Wrap className={className}>
       {label && (
-        <Label className="InputBase-label" variant="label" color="neutral-120" onClick={onLabelClick}>
+        <Label
+          className="InputBase-label"
+          variant="label"
+          color="neutral-120"
+          onClick={onLabelClick}
+        >
           {label}
         </Label>
       )}
-      <Box hasError={hasError} isSuccess={isSuccess} isShell={isShell}>
+      <Box $hasError={hasError} isSuccess={isSuccess} isShell={isShell}>
         {leftIcon && <LeftIcon onClick={onLeftIconClick} name={leftIcon} />}
 
         {!isTextarea && !isShell && <Field {...commonProps} />}

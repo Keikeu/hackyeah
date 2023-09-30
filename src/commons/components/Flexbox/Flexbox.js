@@ -6,10 +6,11 @@ const Box = styled.div`
   display: flex;
   border-radius: var(--border-radius-2);
 
-  align-items: ${({ alignItems }) => alignItems && alignItems};
-  justify-content: ${({ justifyContent }) => justifyContent && justifyContent};
-  flex-direction: ${({ flexDirection }) => flexDirection && flexDirection};
-  flex-wrap: ${({ flexWrap }) => flexWrap && flexWrap};
+  align-items: ${({ $alignItems }) => $alignItems && $alignItems};
+  justify-content: ${({ $justifyContent }) =>
+    $justifyContent && $justifyContent};
+  flex-direction: ${({ $flexDirection }) => $flexDirection && $flexDirection};
+  flex-wrap: ${({ $flexWrap }) => $flexWrap && $flexWrap};
   gap: ${({ gap }) => gap}px;
   flex-grow: ${({ flexGrow }) => flexGrow && flexGrow};
   flex-shrink: ${({ flexShrink }) => flexShrink && flexShrink};
@@ -18,8 +19,8 @@ const Box = styled.div`
   margin: ${({ margin }) => margin && margin};
   padding: ${({ padding }) => padding && padding};
 
-  ${({ isBordered }) =>
-    isBordered &&
+  ${({ $isBordered }) =>
+    $isBordered &&
     css`
       border: 1px solid var(--neutral-180);
     `};
@@ -34,12 +35,20 @@ function formatValue(value) {
   } else return value;
 }
 
-function calculateSpacingValue(spacing, spacingTop, spacingRight, spacingBottom, spacingLeft, spacingX, spacingY) {
+function calculateSpacingValue(
+  spacing,
+  spacingTop,
+  spacingRight,
+  spacingBottom,
+  spacingLeft,
+  spacingX,
+  spacingY
+) {
   if (spacing && spacing.includes(" ")) {
     return spacing;
   }
 
-  const spacingArray = new Array(4).fill(spacing);
+  const spacingArray = new Array(4).fill(spacing || 0);
 
   if (spacingTop !== undefined) {
     spacingArray[0] = formatValue(spacingTop);
@@ -61,6 +70,8 @@ function calculateSpacingValue(spacing, spacingTop, spacingRight, spacingBottom,
     spacingArray[0] = formatValue(spacingY);
     spacingArray[2] = formatValue(spacingY);
   }
+
+  if (!spacingArray.filter(Boolean).length) return null;
 
   return spacingArray.join(" ");
 }
@@ -111,15 +122,23 @@ const Flexbox = forwardRef(
         ref={ref}
         as={as}
         className={className}
-        alignItems={alignItems}
-        justifyContent={justifyContent}
-        flexDirection={flexDirection}
-        flexWrap={flexWrap}
+        $alignItems={alignItems}
+        $justifyContent={justifyContent}
+        $flexDirection={flexDirection}
+        $flexWrap={flexWrap}
         gap={gap}
         flexGrow={flexGrow}
         flexShrink={flexShrink}
         flexBasis={flexBasis}
-        margin={calculateSpacingValue(margin, marginTop, marginRight, marginBottom, marginLeft, marginX, marginY)}
+        margin={calculateSpacingValue(
+          margin,
+          marginTop,
+          marginRight,
+          marginBottom,
+          marginLeft,
+          marginX,
+          marginY
+        )}
         padding={calculateSpacingValue(
           padding,
           paddingTop,
@@ -129,7 +148,7 @@ const Flexbox = forwardRef(
           paddingX,
           paddingY
         )}
-        isBordered={isBordered}
+        $isBordered={isBordered}
         onClick={onClick}
         {...rest}
       >

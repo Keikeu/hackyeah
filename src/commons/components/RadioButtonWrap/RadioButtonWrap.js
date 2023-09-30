@@ -10,14 +10,14 @@ const Box = styled(Flexbox)`
   border: 1px solid var(--neutral-180);
   border-radius: var(--border-radius-2);
   cursor: pointer;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 
   &:hover {
     background-color: var(--neutral-190);
   }
 
-  ${({ isActive }) =>
-    isActive &&
+  ${({ $isActive }) =>
+    $isActive &&
     css`
       border: 1px solid var(--primary-190);
       background-color: var(--primary-190);
@@ -35,9 +35,21 @@ const Content = styled.div`
   background-color: var(--neutral-200);
 `;
 
-function RadioButtonWrap({ className, label, isActive = false, children, onClick }) {
+function RadioButtonWrap({
+  className,
+  label,
+  isActive = false,
+  children,
+  onClick,
+}) {
   return (
-    <Box className={className} flexDirection="column" gap={12} isActive={isActive} onClick={onClick}>
+    <Box
+      className={className}
+      flexDirection="column"
+      gap={12}
+      $isActive={isActive}
+      onClick={onClick}
+    >
       <RadioButton label={label} isActive={isActive} />
       {children && <Content>{children}</Content>}
     </Box>

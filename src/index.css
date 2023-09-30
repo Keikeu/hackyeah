@@ -1,14 +1,11 @@
 :root {
-  --primary-70: #b3535e;
-  --primary-90: #e66a79;
-  --primary-100: #ff7686;
-  --primary-140: #ffadb6;
-  --primary-170: #ffd6db;
-  --primary-180: #ffe4e7;
-  --primary-190: #fff1f3;
-
-  --secondary-100: #9886b3;
-  --secondary-190: #f4f2f7;
+  --primary-70: #a85f00;
+  --primary-90: #d87a00;
+  --primary-100: #f08700;
+  --primary-140: #f6b766;
+  --primary-170: #fbdbb3;
+  --primary-180: #fce7cc;
+  --primary-190: #fef3e6;
 
   --neutral-40: #1c1c1d;
   --neutral-60: #2b2b2c;

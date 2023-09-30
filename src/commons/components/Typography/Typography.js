@@ -21,10 +21,9 @@ const StyledComponent = styled.div`
   ${({ variant }) =>
     variant === "h1" &&
     css`
-      font-family: "Ubuntu", sans-serif;
+      font-family: "Gabarito", sans-serif;
       font-size: 48px;
       line-height: 64px;
-      font-weight: 800;
       font-weight: 700;
       letter-spacing: -0.02em;
     `};
@@ -32,7 +31,7 @@ const StyledComponent = styled.div`
   ${({ variant }) =>
     variant === "h2" &&
     css`
-      font-family: "Ubuntu", sans-serif;
+      font-family: "Gabarito", sans-serif;
       font-size: 36px;
       line-height: 48px;
       font-weight: 700;
@@ -42,8 +41,8 @@ const StyledComponent = styled.div`
   ${({ variant }) =>
     variant === "h3" &&
     css`
-      font-family: "Ubuntu", sans-serif;
-      font-size: 24px;
+      font-family: "Gabarito", sans-serif;
+      font-size: 22px;
       line-height: 32px;
       font-weight: 700;
       letter-spacing: -0.02em;
@@ -52,12 +51,10 @@ const StyledComponent = styled.div`
   ${({ variant }) =>
     variant === "h4" &&
     css`
-      font-family: "Ubuntu", sans-serif;
+      font-family: "Gabarito", sans-serif;
       font-size: 18px;
-      line-height: 24px;
-      /* font-size: 16px; */
-      /* line-height: 24px; */
-      font-weight: 700;
+      line-height: 28px;
+      font-weight: 600;
       letter-spacing: -0.02em;
     `};
 
@@ -108,11 +105,26 @@ const StyledComponent = styled.div`
     `};
 `;
 
-function Typography({ className, variant = "body", color, children, as, margin = "", ...props }) {
+function Typography({
+  className,
+  variant = "body",
+  color,
+  children,
+  as,
+  margin = "",
+  ...props
+}) {
   const component = as || variantsMapping[variant] || "p";
 
   return (
-    <StyledComponent className={className} as={component} variant={variant} color={color} margin={margin} {...props}>
+    <StyledComponent
+      className={className}
+      as={component}
+      variant={variant}
+      color={color}
+      margin={margin}
+      {...props}
+    >
       {children}
     </StyledComponent>
   );
@@ -120,7 +132,18 @@ function Typography({ className, variant = "body", color, children, as, margin =
 
 Typography.propTypes = {
   className: T.string,
-  variant: T.oneOf(["h1", "h2", "h3", "h4", "label", "body", "paragraph", "timer", "mono", "tableHeader"]),
+  variant: T.oneOf([
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "label",
+    "body",
+    "paragraph",
+    "timer",
+    "mono",
+    "tableHeader",
+  ]),
   color: T.string,
   children: T.oneOfType([T.object, T.string, T.node]),
   as: T.string,

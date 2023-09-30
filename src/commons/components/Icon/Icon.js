@@ -15,8 +15,8 @@ const Span = styled.span`
       cursor: pointer;
     `}
 
-  ${({ isFilled }) =>
-    isFilled &&
+  ${({ $isFilled }) =>
+    $isFilled &&
     css`
       font-variation-settings: "FILL" 1;
     `}
@@ -29,7 +29,7 @@ function Icon({ className, name, size, color, onClick, isFilled = false }) {
       color={color}
       className={`material-symbols-rounded${className ? ` ${className}` : ""}`}
       onClick={onClick}
-      isFilled={isFilled}
+      $isFilled={isFilled}
       translate="no"
     >
       {name}

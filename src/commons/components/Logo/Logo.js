@@ -2,23 +2,27 @@ import React from "react";
 import T from "prop-types";
 import styled from "styled-components/macro";
 import { Link } from "react-router-dom";
+import Icon from "../Icon";
 
 const LogoLink = styled(Link)`
   display: flex;
   gap: 8px;
   align-items: center;
-  font-family: "Ubuntu";
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-  letter-spacing: -0.02em;
+  font-family: "Gabarito";
+  font-weight: 600;
+  font-size: 28px;
   color: var(--primary-100);
+`;
+
+const LogoIcon = styled(Icon)`
+  font-variation-settings: "FILL" 1;
 `;
 
 function Logo({ className, link }) {
   return (
     <LogoLink className={className} to={link}>
-      hackyeah project
+      <LogoIcon name="local_library" />
+      Coogle
     </LogoLink>
   );
 }

@@ -11,8 +11,8 @@ const Circle = styled.div`
   background-color: var(--neutral-200);
   border-radius: 50%;
 
-  ${({ isActive }) =>
-    isActive &&
+  ${({ $isActive }) =>
+    $isActive &&
     css`
       background-color: var(--primary-100);
       border: none;
@@ -32,8 +32,8 @@ const Circle = styled.div`
 
 function RadioButton({ className, label, isActive, onClick }) {
   return (
-    <Flexbox className={className} gap={12} isActive={isActive} onClick={onClick}>
-      <Circle isActive={isActive} />
+    <Flexbox className={className} gap={12} onClick={onClick}>
+      <Circle $isActive={isActive} />
       {label}
     </Flexbox>
   );
