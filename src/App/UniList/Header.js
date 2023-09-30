@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import T from "prop-types";
 import styled, { css } from "styled-components/macro";
 import Flexbox from "commons/components/Flexbox";
 import Icon from "commons/components/Icon";
 import Typography from "commons/components/Typography";
-import { categories } from "commons/util/constants";
+import {categories, results as mockResults} from "commons/util/constants";
 import Modal from "commons/components/Modal";
 import Button from "commons/components/Button";
 import SelectInput from "commons/components/SelectInput";
 import NumberInput from "commons/components/NumberInput";
+import callApi from "../../commons/util/callApi";
 
 const Box = styled(Flexbox)`
   padding: 14px 32px;
@@ -140,6 +141,17 @@ function Header({ className, categoryList, setCategoryList }) {
     { id: 0, subject: "", percentage: "" },
   ]);
 
+  useEffect(() => {
+      async function getUserFinals() {
+          const res = await callApi("users/finals", "get");
+          if (res && res.length !== 0) {
+              setResults(res);
+          }
+      }
+
+      getUserFinals();
+  }, [])
+
   function toggleCategory(id) {
     if (categoryList.includes(id)) {
       setCategoryList(categoryList.filter((categoryId) => categoryId !== id));
@@ -178,15 +190,30 @@ function Header({ className, categoryList, setCategoryList }) {
         <ModalStyled handleClose={() => setShowModal(false)}>
           <Flexbox flexDirection="column" padding={40}>
             <Typography variant="h3">Wyniki maturalne</Typography>
-            <Flexbox alignItems="flex-end" marginY={24} gap={16}>
               {results.map((result) => (
                 <React.Fragment key={result.id}>
+                    <Flexbox alignItems="flex-end" marginY={24} gap={16}>
                   <SelectInput
                     label="Przedmiot"
                     placeholder="Wybierz przedmiot"
-                    options={[{ id: "matematyka", label: "Matematyka" }]}
+                    options={[
+                        { id: "matematyka", label: "Matematyka" },
+                        { id: "fizyka", label: "Fizyka" },
+                        { id: "polski", label: "Polski" },
+                        { id: "geografia", label: "Geografia" },
+                        { id: "angielski", label: "Angielski" },
+                    ]}
                     value={result.subject}
-                    onChange={() => {}}
+                    onChange={(e) => {
+                        let newArr = [...results]; // copying the old datas array
+                        console.log(newArr)
+                        if (!newArr[result.id]) {
+                            return
+                        }
+                        newArr[result.id].subject = e;
+                        setResults(newArr)
+                    }
+                  }
                   />
                   <NumberInputStyled
                     label="Twój wynik"
@@ -194,16 +221,27 @@ function Header({ className, categoryList, setCategoryList }) {
                     value={result.percentage}
                     min={0}
                     max={100}
+                    onChange={(e) => {
+                        let newArr = [...results]; // copying the old datas array
+                        if (!newArr[result.id]) {
+                            return
+                        }
+                        newArr[result.id].percentage = e;
+                        setResults(newArr)
+                    }}
                   />
-                  <Button variant="tertiary" icon="delete" size="medium" />
+                  <Button variant="tertiary" icon="delete" size="medium" onClick={() => {
+                      setResults(results.filter(res => res.id !== result.id))
+                  }
+                  }/>
+                    </Flexbox>
                 </React.Fragment>
               ))}
-            </Flexbox>
-            <Button variant="secondary" icon="add">
+            <Button variant="secondary" icon="add" onClick={() => setResults([...results, { id: results.length, subject: "", percentage: "" }])}>
               Dodaj wynik
             </Button>
           </Flexbox>
-          <Button>Zapisz</Button>
+          <Button onClick={() => callApi("users/finals", "put", results)}>Zapisz</Button>
         </ModalStyled>
       )}
     </>
