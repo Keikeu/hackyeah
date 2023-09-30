@@ -34,10 +34,6 @@ function Map({ className, universities }) {
 
   return (
     <Box className={className}>
-      <div>
-        <p>Latitude: {userLocation.lat}</p>
-        <p>Longitude: {userLocation.lng}</p>
-      </div>
       <MapContainer
         center={
           (userLocation && [userLocation.lat, userLocation.lng]) || position
