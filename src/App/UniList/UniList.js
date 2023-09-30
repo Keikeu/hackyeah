@@ -29,6 +29,7 @@ function UniList() {
 
       console.log(universities);
       setUniversities(res);
+      console.log(res);
     }
 
     setUniversities(mockResults);
@@ -53,20 +54,12 @@ function UniList() {
           setOnlyFavorites={setOnlyFavorites}
         />
         <Map
-          universities={[
-            {
-              position: [51.505, -0.09],
-              name: "Fajna nazwa Uni 1 ",
-            },
-            {
-              position: [51.507, -0.09],
-              name: "Fajna nazwa Uni 2 ",
-            },
-            {
-              position: [51.509, -0.09],
-              name: "Fajna nazwa Uni 3 ",
-            },
-          ]}
+            universities={universities.filter(uni => uni.coordinates).map(uni => {
+                return {
+                    position: [uni.coordinates.latitude, uni.coordinates.longitude],
+                    name: uni.name
+                }
+            })}
         />
       </Flexbox>
     </Box>
