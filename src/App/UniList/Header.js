@@ -124,14 +124,28 @@ const CategoryIcon = styled(Icon)`
 
 const ModalStyled = styled(Modal)`
   max-width: 640px;
+  min-height: 409px;
   max-height: 640px;
+  height: auto;
+  overflow-y: auto;
 `;
 
 const NumberInputStyled = styled(NumberInput)`
   width: 200px;
 `;
 
-function Header({ className, categoryList, setCategoryList,refetch ,setRefetch }) {
+const SaveButton = styled(Button)`
+  align-self: flex-end;
+  margin-top: auto;
+`;
+
+function Header({
+  className,
+  categoryList,
+  setCategoryList,
+  refetch,
+  setRefetch,
+}) {
   const [showModal, setShowModal] = useState(false);
   const [results, setResults] = useState([
     { id: 0, subject: "", percentage: "" },
@@ -189,11 +203,11 @@ function Header({ className, categoryList, setCategoryList,refetch ,setRefetch }
 
       {showModal && (
         <ModalStyled handleClose={() => setShowModal(false)}>
-          <Flexbox flexDirection="column" padding={40}>
+          <Flexbox flexDirection="column" padding={40} gap={24}>
             <Typography variant="h3">Wyniki maturalne</Typography>
             {results.map((result) => (
               <React.Fragment key={result.id}>
-                <Flexbox alignItems="flex-end" marginY={24} gap={16}>
+                <Flexbox alignItems="flex-end" gap={16}>
                   <SelectInput
                     label="Przedmiot"
                     placeholder="Wybierz przedmiot"
@@ -255,16 +269,19 @@ function Header({ className, categoryList, setCategoryList,refetch ,setRefetch }
             >
               Dodaj wynik
             </Button>
+
+            <SaveButton
+              size="medium"
+              onClick={() => {
+                setShowModal(false);
+                callApi("users/finals", "put", results);
+                setRefetch(!refetch);
+              }}
+              marginTop="auto"
+            >
+              Zapisz
+            </SaveButton>
           </Flexbox>
-          <Button
-            onClick={() => {
-              setShowModal(false);
-              callApi("users/finals", "put", results);
-              setRefetch(!refetch)
-            }}
-          >
-            Zapisz
-          </Button>
         </ModalStyled>
       )}
     </>
