@@ -15,8 +15,7 @@ export const categories = [
 
 export const defaultFilters = {
   stationary: true,
-  universityType: "PUBLIC",
-  level: "1a",
+  universityType: ["PUBLIC"],
 };
 
 export const filterStructure = [

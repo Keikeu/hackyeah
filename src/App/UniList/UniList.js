@@ -7,6 +7,7 @@ import Results from "./Results";
 import Map from "./Map";
 import callApi from "commons/util/callApi";
 import Navigation from "App/Navigation";
+import { defaultFilters } from "commons/util/constants";
 
 const Box = styled.div``;
 
@@ -16,7 +17,7 @@ function UniList() {
   const [categoryList, setCategoryList] = useState([]);
   const [universities, setUniversities] = useState([]);
   const [onlyFavorites, setOnlyFavorites] = useState(false);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState(defaultFilters);
   const [refetch, setRefetch] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +48,12 @@ function UniList() {
         location={location}
         setLocation={setLocation}
       />
-      <Header categoryList={categoryList} setCategoryList={setCategoryList} refetch={refetch} setRefetch={setRefetch}/>
+      <Header
+        categoryList={categoryList}
+        setCategoryList={setCategoryList}
+        refetch={refetch}
+        setRefetch={setRefetch}
+      />
       <Flexbox padding="16px 32px">
         <Filters filters={filters} setFilters={setFilters} />
         <Results
