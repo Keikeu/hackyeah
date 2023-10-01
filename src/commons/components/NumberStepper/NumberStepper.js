@@ -49,7 +49,7 @@ const StepperButton = styled.button`
 `;
 
 const Value = styled.div`
-  width: 20px;
+  width: 28px;
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;

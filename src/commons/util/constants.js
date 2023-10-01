@@ -20,16 +20,6 @@ export const defaultFilters = {
 };
 
 export const filterStructure = [
-  // {
-  //   id: "defaultServings",
-  //   label: "Default number of servings",
-  //   type: "number",
-  // },
-  {
-    id: "stationary",
-    label: "Stacjonarne",
-    type: "bool",
-  },
   {
     id: "universityType",
     label: "Typ uczelnii",

@@ -58,16 +58,17 @@ function Filters({ className, filters, setFilters }) {
       <FlexboxStyled flexDirection="column" gap={8} marginTop={16} isBordered>
         <Filter
           id="graduationExamResults"
-          label="Aplikuj moje wyniki maturalne"
+          label="Uwzględnij moje wyniki maturalne"
           type="bool"
           value={filters.graduationExamResults}
           onChange={(value) =>
             setFilters((currentFilters) => ({
               ...currentFilters,
-                graduationExamResults: value,
+              graduationExamResults: value,
             }))
           }
-        /><Filter
+        />
+        <Filter
           id="stationary"
           label="Stacjonarne"
           type="bool"
@@ -79,20 +80,11 @@ function Filters({ className, filters, setFilters }) {
             }))
           }
         />
-        {filterStructure.map((el) => (
-          <Filter
-            {...el}
-            key={el.id}
-            value={filters[el.id]}
-            onChange={(value) => updateFilters(el.id, value)}
-          />
-        ))}
         <Filter
           id="distance"
           label="Odległość"
           type="number"
           step={30}
-          key="distance"
           value={filters.distance ? filters.distance.distance : 0}
           min={0}
           max={10000}
@@ -110,6 +102,14 @@ function Filters({ className, filters, setFilters }) {
             }));
           }}
         />
+        {filterStructure.map((el) => (
+          <Filter
+            {...el}
+            key={el.id}
+            value={filters[el.id]}
+            onChange={(value) => updateFilters(el.id, value)}
+          />
+        ))}
       </FlexboxStyled>
     </Box>
   );
