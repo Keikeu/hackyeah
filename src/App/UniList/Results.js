@@ -4,7 +4,7 @@ import styled from "styled-components/macro";
 import Typography from "commons/components/Typography";
 import Result from "./Result";
 import Tabs from "commons/components/Tabs";
-import Loader from "commons/components/Loader";
+import { AnimatePresence, motion, useIsPresent } from "framer-motion";
 
 const Box = styled.div`
   width: 100%;
@@ -13,6 +13,25 @@ const Box = styled.div`
   position: relative;
   padding: 16px;
 `;
+
+const MotionCard = styled(motion.div)``;
+
+const AnimatedItem = ({ children }) => {
+  const isPresent = useIsPresent();
+  const animations = {
+    style: {
+      position: isPresent ? "static" : "absolute",
+    },
+    initial: { y: 4, scale: 0.95, opacity: 0 },
+    animate: { y: 0, scale: 1, opacity: 1 },
+    exit: { y: 4, scale: 0.95, opacity: 0 },
+  };
+  return (
+    <MotionCard {...animations} layout>
+      {children}
+    </MotionCard>
+  );
+};
 
 function Results({
   className,
@@ -46,17 +65,14 @@ function Results({
         setActiveTabId={toggleFavTab}
         activeTabId={activeTabId}
       />
-      {isLoading ? (
-        <Loader containerHeight="200px" />
+      {!isLoading && !results.length ? (
+        <Typography margin="16px 0 0 0">Brak wyników</Typography>
       ) : (
         <>
-          {!results.length ? (
-            <Typography margin="16px 0 0 0">Brak wyników</Typography>
-          ) : (
-            <>
-              {results.map((result) => (
+          <AnimatePresence>
+            {results.map((result) => (
+              <AnimatedItem key={result.id}>
                 <Result
-                  key={result.id}
                   id={result.id}
                   name={result.name}
                   imageUrl={result.photoUrl}
@@ -66,9 +82,9 @@ function Results({
                   rating={result.rating}
                   {...result}
                 />
-              ))}
-            </>
-          )}
+              </AnimatedItem>
+            ))}
+          </AnimatePresence>
         </>
       )}
     </Box>
