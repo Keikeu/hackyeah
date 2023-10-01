@@ -174,12 +174,6 @@ function Result({
               {rest.siteURL}
             </TextLink>
 
-            <Flexbox flexWrap="wrap" gap={24} marginTop={32}>
-              {rest.courseDegrees.map((course) => (
-                <Course key={course.name} course={course} />
-              ))}
-            </Flexbox>
-
             <Typography variant="paragraph" margin="32px 0 0 0">
               <b>Typ uczelni:</b>{" "}
               {rest.type === "PUBLIC" ? "Publiczna" : "Prywatna"}
@@ -200,6 +194,18 @@ function Result({
               <b>Udogodnienia dla niepełnosprawnych:</b>{" "}
               {rest.accessibilitiesForDisabled.map((el) => el).join(", ")}
             </Typography>
+            <Typography variant="paragraph">
+              <Flexbox flexWrap="wrap" gap={24} marginTop={35}>
+              <b style={{fontSize:"30px"}}>Kierunki</b>{" "}
+              </Flexbox>
+              <Flexbox flexWrap="wrap" gap={24} marginTop={32}>
+              {rest.courseDegrees.map((course) => (
+                    <Course key={course.name} course={course} />
+                ))}
+              </Flexbox>
+            </Typography>
+
+
           </Flexbox>
         </DetailsModal>
       )}

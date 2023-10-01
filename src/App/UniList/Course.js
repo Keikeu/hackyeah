@@ -37,7 +37,7 @@ function Course({ className, course }) {
         <Detail
           variant="vertical"
           label="Mediana zarobków"
-          value={course.earnings || "-"}
+          value={course.earningsMedian + " PLN" || "-"}
         />
       </Flexbox>
 
