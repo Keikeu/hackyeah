@@ -198,7 +198,7 @@ function Header({ className, categoryList, setCategoryList }) {
                       { id: "polski", label: "Polski" },
                       { id: "geografia", label: "Geografia" },
                       { id: "angielski", label: "Angielski" },
-                    ]}
+                    ].map(it => ({...it, disabled: results.some(e => e.subject === it.id) }))}
                     value={result.subject}
                     onChange={(e) => {
                       let newArr = [...results]; // copying the old datas array
@@ -248,7 +248,10 @@ function Header({ className, categoryList, setCategoryList }) {
               Dodaj wynik
             </Button>
           </Flexbox>
-          <Button onClick={() => callApi("users/finals", "put", results)}>
+          <Button onClick={() => {
+              setShowModal(false)
+              callApi("users/finals", "put", results)
+          }}>
             Zapisz
           </Button>
         </ModalStyled>
