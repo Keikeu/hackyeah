@@ -20,8 +20,6 @@ function UniList() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(universities);
-
   useEffect(() => {
     async function getUniversities() {
       setIsLoading(true);
@@ -29,7 +27,7 @@ function UniList() {
         keywords: [searchString],
         location,
         // categories: categoryList,
-        isFavourite: onlyFavorites,
+        favourite: onlyFavorites,
         ...filters,
       });
 
