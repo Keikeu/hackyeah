@@ -53,13 +53,6 @@ function Result({
   const [showModal, setShowModal] = useState(false);
   const [isFavorite, setIsFavorite] = useState(initIsFavorite);
 
-  useUpdateEffect(() => {
-    async function toggleFavorite() {
-      await callApi(`university/${id}/favourite`, "post");
-    }
-    toggleFavorite();
-  }, [isFavorite]);
-
   return (
     <>
       <Box
@@ -81,6 +74,11 @@ function Result({
           isFilled={isFavorite}
           onClick={(e) => {
             e.stopPropagation();
+            if (isFavorite) {
+              callApi("university/" + id + "/favourite", "delete")
+            }else {
+              callApi("university/" + id + "/favourite", "post")
+            }
             setIsFavorite(!isFavorite);
           }}
         />
