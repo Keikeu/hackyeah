@@ -27,7 +27,7 @@ function Filter({
       <Typography variant="h4">{label}</Typography>
 
       {type === "select" && (
-        <Flexbox gap={12} alignItems="flex-start" flexWrap="wrap">
+        <Flexbox gap={4} alignItems="flex-start" flexWrap="wrap">
           {options.map((option) => (
             <RadioButtonWrapFullWidth
               key={option.value}
@@ -41,7 +41,7 @@ function Filter({
       )}
 
       {type === "bool" && (
-        <Flexbox gap={12} alignItems="flex-start" flexWrap="wrap">
+        <Flexbox gap={4} alignItems="flex-start" flexWrap="wrap">
           <RadioButtonWrap
             label="Tak"
             isActive={!!value}

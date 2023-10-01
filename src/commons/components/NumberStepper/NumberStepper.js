@@ -17,7 +17,7 @@ const VisibleInput = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px 8px;
+  padding: 8px 8px;
   gap: 12px;
   background-color: var(--primary-190);
   border-radius: var(--border-radius-1);

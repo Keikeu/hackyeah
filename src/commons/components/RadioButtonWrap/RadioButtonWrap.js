@@ -6,7 +6,9 @@ import Flexbox from "commons/components/Flexbox";
 
 const Box = styled(Flexbox)`
   min-width: 140px;
-  padding: 10px 12px;
+  padding: 8px 10px;
+  font-size: 14px;
+  line-height: 20px;
   border: 1px solid var(--neutral-180);
   border-radius: var(--border-radius-2);
   cursor: pointer;
