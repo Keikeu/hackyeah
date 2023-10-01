@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import T from "prop-types";
 import Flexbox from "commons/components/Flexbox";
 import Typography from "commons/components/Typography";
 import RadioButtonWrap from "commons/components/RadioButtonWrap";
 import NumberStepper from "commons/components/NumberStepper";
 import styled from "styled-components/macro";
+import Button from "commons/components/Button";
 
 const RadioButtonWrapFullWidth = styled(RadioButtonWrap)`
   width: 100%;
@@ -22,21 +23,34 @@ function Filter({
   onChange,
   isSingleChoice,
 }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <Flexbox flexDirection="column" padding="16px" gap={10}>
       <Typography variant="h4">{label}</Typography>
 
       {type === "select" && (
         <Flexbox gap={4} alignItems="flex-start" flexWrap="wrap">
-          {options.map((option) => (
-            <RadioButtonWrapFullWidth
-              key={option.value}
-              label={option.label}
-              isActive={value?.includes(option.value)}
-              onClick={() => onChange(option.value)}
-              isSingleChoice={isSingleChoice}
-            />
-          ))}
+          {options
+            .filter((_, i) => isExpanded || i < 5)
+            .map((option) => (
+              <RadioButtonWrapFullWidth
+                key={option.value}
+                label={option.label}
+                isActive={value?.includes(option.value)}
+                onClick={() => onChange(option.value)}
+                isSingleChoice={isSingleChoice}
+              />
+            ))}
+          {options.length > 5 && (
+            <Button
+              variant="tertiary"
+              onClick={() => setIsExpanded((exp) => !exp)}
+              fullWidth
+            >
+              {isExpanded ? "Pokaż mniej" : "Pokaż więcej"}
+            </Button>
+          )}
         </Flexbox>
       )}
 
