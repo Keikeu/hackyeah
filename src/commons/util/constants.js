@@ -44,10 +44,10 @@ export const filterStructure = [
     label: "Poziom studiów",
     type: "select",
     options: [
-      { label: "I stopnia (inżynierskie)", value: "1a" },
-      { label: "I stopnia (licencjackie)", value: "1b" },
-      { label: "II stopnia", value: "2a" },
-      { label: "Jednoliste magisterskie", value: "2b" },
+      { label: "I stopnia (inżynierskie)", value: "1inz" },
+      { label: "I stopnia (licencjackie)", value: "1lic" },
+      { label: "II stopnia", value: "2" },
+      { label: "Jednoliste magisterskie", value: "2jednolite" },
     ],
   },
   {

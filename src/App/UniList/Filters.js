@@ -71,6 +71,7 @@ function Filters({ className, filters, setFilters }) {
           step={30}
           key="distance"
           value={filters.distance ? filters.distance.distance : 0}
+          min={0}
           max={10000}
           onChange={(value) => {
             const result = {
