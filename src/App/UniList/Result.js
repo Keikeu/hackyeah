@@ -89,8 +89,11 @@ function Result({
           gap={4}
           paddingTop={8}
           paddingBottom={16}
+          paddingRight={16}
         >
-          <Typography variant="h4">{name}</Typography>
+          <Typography variant="h4" margin="0 12px 0 0">
+            {name}
+          </Typography>
           <FlexTypography variant="body">
             <Icon name="location_on" />
             {location}
