@@ -5,6 +5,7 @@ import Typography from "commons/components/Typography";
 import Flexbox from "commons/components/Flexbox";
 import Filter from "./Filter";
 import { filterStructure } from "commons/util/constants";
+import callLocalStorage from "../../commons/util/callLocalStorage";
 
 const Box = styled.div`
   width: 380px;
@@ -18,12 +19,13 @@ const FlexboxStyled = styled(Flexbox)`
 `;
 
 function Filters({ className, filters, setFilters }) {
+  const position = callLocalStorage("userLocation", "get") || [50.06143, 19.93658];
   const userLocation = {
-    lat: 50.067469,
-    lng: 19.991694,
+    lat: position[0],
+    lng: position[1],
   };
 
-  function updateFilters(id, value) {
+    function updateFilters(id, value) {
     let newValue;
 
     if (!filters[id]) {

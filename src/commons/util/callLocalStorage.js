@@ -10,7 +10,7 @@ function callLocalStorage(name, method = "get", data = {}) {
   if (!name) return {};
 
   if (method === "get") {
-    return getItem(name) || {};
+    return getItem(name);
   }
 
   if (method === "set") {
