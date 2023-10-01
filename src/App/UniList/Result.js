@@ -7,7 +7,6 @@ import Icon from "commons/components/Icon";
 import Typography from "commons/components/Typography";
 import callApi from "commons/util/callApi";
 import Modal from "commons/components/Modal";
-import { useUpdateEffect } from "commons/util/useUpdateEffect";
 import Tag from "commons/components/Tag";
 import TextLink from "commons/components/TextLink";
 
@@ -38,6 +37,7 @@ const FlexTypography = styled(Typography)`
 const DetailsModal = styled(Modal)`
   max-width: 640px;
   max-height: 800px;
+  overflow-y: auto;
 `;
 
 const ImageRounded = styled(Image)`
@@ -79,9 +79,9 @@ function Result({
           onClick={(e) => {
             e.stopPropagation();
             if (isFavorite) {
-              callApi("university/" + id + "/favourite", "delete")
-            }else {
-              callApi("university/" + id + "/favourite", "post")
+              callApi("university/" + id + "/favourite", "delete");
+            } else {
+              callApi("university/" + id + "/favourite", "post");
             }
             setIsFavorite(!isFavorite);
           }}
@@ -119,16 +119,17 @@ function Result({
             />
             <Typography variant="h3">{name}</Typography>
             <TextLink to={rest.siteURL}>{rest.siteURL}</TextLink>
-            <Typography variant="paragraph">
+            <Typography variant="paragraph" margin="0 0 16px 0">
               {rest.address.city}, ul.{rest.address.street}{" "}
               {rest.address.buildingNumber}
             </Typography>
+
             <Typography variant="paragraph">
               <b>Typ uczelni:</b>{" "}
               {rest.type === "PUBLIC" ? "Publiczna" : "Prywatna"}
             </Typography>
             <Typography variant="paragraph">
-              <b>Stypendia:</b> {rest.scholarships.map((el) => el)}
+              <b>Stypendia:</b> {rest.scholarships.map((el) => el).join(", ")}
             </Typography>
             <Typography variant="paragraph">
               <b>Kluby:</b> {rest.clubs.map((el) => el.name).join(", ")}
@@ -143,7 +144,15 @@ function Result({
               <b>Udogodnienia dla niepełnosprawnych:</b>{" "}
               {rest.accessibilitiesForDisabled.map((el) => el).join(", ")}
             </Typography>
-            <Typography variant="paragraph"></Typography>
+
+            <Typography variant="h4" margin="12px 0 0 0">
+              Kierunki studiów:
+            </Typography>
+            <Flexbox flexWrap="wrap" gap={4}>
+              {rest.courseDegrees.map((course) => (
+                <Tag key={course.name} label={course.name} color="grey" />
+              ))}
+            </Flexbox>
             <Typography variant="paragraph"></Typography>
           </Flexbox>
         </DetailsModal>
