@@ -100,6 +100,8 @@ function UniList() {
                 name: uni.name,
               };
             })}
+          setFilters={setFilters}
+          filters={filters}
         />
       </Flexbox>
     </Box>

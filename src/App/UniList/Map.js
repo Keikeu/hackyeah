@@ -22,7 +22,8 @@ const ButtonStyled = styled(Button)`
   z-index: 650;
 `;
 
-function Map({ className, universities }) {
+function Map({ className, universities, setFilters,
+               filters }) {
   const position = callLocalStorage("userLocation", "get") || [
     50.06143, 19.93658,
   ];
@@ -30,11 +31,21 @@ function Map({ className, universities }) {
   const [userLocationEditing, setUserLocationEditing] = React.useState(false);
 
   function handleUserLocationEditingToggle() {
-    if (userLocationEditing) {
+    if (userLocationEditing && userLocation) {
       callLocalStorage("userLocation", "set", [
         userLocation.lat,
         userLocation.lng,
       ]);
+      setFilters((currentFilters) => ({
+        ...currentFilters,
+        distance: {
+          ...filters?.distance,
+          userCoordinates: {
+            latitude: userLocation.lat,
+            longitude: userLocation.lng,
+          },
+        },
+      }))
     }
     setUserLocationEditing(!userLocationEditing);
   }
