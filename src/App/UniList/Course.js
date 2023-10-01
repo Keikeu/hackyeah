@@ -9,6 +9,17 @@ const Box = styled(Flexbox)`
   width: 100%;
 `;
 
+const TypographyFlex = styled(Typography)`
+  display: flex;
+  justify-content: space-between;
+  color: var(--primary-100);
+`;
+
+const Tuition = styled.div`
+  color: var(--primary-140);
+  font-size: 24px;
+`;
+
 const levelMap = {
   "1inz": "I stopnia (inżynierskie)",
   "1lic": "I stopnia (licencjackie)",
@@ -20,13 +31,16 @@ function Course({ className, course }) {
   return (
     <Box className={className} padding={16} isBordered flexDirection="column">
       {console.log(course)}
-      <Typography variant="h3">{course.name}</Typography>
+      <TypographyFlex variant="h2">
+        {course.name}
+        <Tuition>{course.tuition} PLN</Tuition>
+      </TypographyFlex>
 
-      <Flexbox gap={32} margin="16px 0 32px 0">
+      <Flexbox gap={32} margin="24px 0 32px 0">
         <Detail
           variant="vertical"
           label="Poziom studiów"
-          value={levelMap[course.level]}
+          value={levelMap[course.level] || course.level}
         />
         <Detail
           variant="vertical"
@@ -43,7 +57,7 @@ function Course({ className, course }) {
 
       <Typography variant="h3">Syllabus:</Typography>
       {course.syllabus.semesters.map((semester) => (
-        <Flexbox padding="8px 0" flexDirection="column">
+        <Flexbox padding="8px 0" flexDirection="column" key={semester.ordinal}>
           <b>Semestr {semester.ordinal}:</b>
           {semester.subjects.join(", ")}
         </Flexbox>
