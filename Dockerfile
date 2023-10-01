@@ -1,18 +1,11 @@
-FROM node:alpine
-
-# Create app directory
-WORKDIR /usr/src/app
-
-# Install app dependencies
-COPY package.json .
-# For npm@5 or later, copy package-lock.json as well
-# COPY package.json package-lock.json .
-
+FROM node:18.8-alpine as build-stage
+WORKDIR /app
+COPY package*.json ./
 RUN npm install
-
-# Bundle app source
 COPY . .
+RUN npm run build
 
-EXPOSE 8080
-
-CMD [ "npm", "start" ]
+FROM nginx:1.22.1-alpine as prod-stage
+COPY --from=build-stage /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
