@@ -8,8 +8,10 @@ import Loader from "commons/components/Loader";
 
 const Box = styled.div`
   width: 100%;
+  height: calc(100vh - 270px);
+  overflow-y: auto;
   position: relative;
-  margin-right: 16px;
+  padding: 0 16px;
 `;
 
 function Results({

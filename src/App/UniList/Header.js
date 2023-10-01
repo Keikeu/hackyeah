@@ -158,7 +158,12 @@ function Header({ className, categoryList, setCategoryList }) {
 
   return (
     <>
-      <Box className={className} justifyContent="space-between" gap={24}>
+      <Box
+        className={className}
+        alignItems="flex-start"
+        justifyContent="space-between"
+        gap={24}
+      >
         <Flexbox gap={24}>
           {categories.map((category) => (
             <Category
@@ -177,7 +182,7 @@ function Header({ className, categoryList, setCategoryList }) {
             </Category>
           ))}
         </Flexbox>
-        <Button onClick={() => setShowModal(true)}>
+        <Button variant="secondary" onClick={() => setShowModal(true)}>
           Moje wyniki maturalne
         </Button>
       </Box>
@@ -198,7 +203,10 @@ function Header({ className, categoryList, setCategoryList }) {
                       { id: "polski", label: "Polski" },
                       { id: "geografia", label: "Geografia" },
                       { id: "angielski", label: "Angielski" },
-                    ].map(it => ({...it, disabled: results.some(e => e.subject === it.id) }))}
+                    ].map((it) => ({
+                      ...it,
+                      disabled: results.some((e) => e.subject === it.id),
+                    }))}
                     value={result.subject}
                     onChange={(e) => {
                       let newArr = [...results]; // copying the old datas array
@@ -248,10 +256,12 @@ function Header({ className, categoryList, setCategoryList }) {
               Dodaj wynik
             </Button>
           </Flexbox>
-          <Button onClick={() => {
-              setShowModal(false)
-              callApi("users/finals", "put", results)
-          }}>
+          <Button
+            onClick={() => {
+              setShowModal(false);
+              callApi("users/finals", "put", results);
+            }}
+          >
             Zapisz
           </Button>
         </ModalStyled>

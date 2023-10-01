@@ -16,6 +16,7 @@ function UniList() {
   const [categoryList, setCategoryList] = useState([]);
   const [universities, setUniversities] = useState([]);
   const [onlyFavorites, setOnlyFavorites] = useState(false);
+  const [filters, setFilters] = useState({});
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,10 +26,11 @@ function UniList() {
     async function getUniversities() {
       setIsLoading(true);
       const res = await callApi("search/universities", "post", {
-        searchString,
+        keywords: [searchString],
         location,
-        // categoryList,
+        // categories: categoryList,
         isFavourite: onlyFavorites,
+        ...filters,
       });
 
       setUniversities(res);
@@ -36,7 +38,7 @@ function UniList() {
     }
 
     getUniversities();
-  }, [searchString, location, categoryList, onlyFavorites]);
+  }, [searchString, location, categoryList, onlyFavorites, filters]);
 
   return (
     <Box>
@@ -48,7 +50,7 @@ function UniList() {
       />
       <Header categoryList={categoryList} setCategoryList={setCategoryList} />
       <Flexbox padding="16px 32px">
-        <Filters />
+        <Filters filters={filters} setFilters={setFilters} />
         <Results
           isLoading={isLoading}
           results={universities}

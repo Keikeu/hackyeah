@@ -20,7 +20,7 @@ const Box = styled(Flexbox)`
   padding: 14px 32px;
   border-bottom: 1px solid var(--neutral-180);
   border-radius: var(--border-radius-0);
-  z-index: var(--z-index-0);
+  /* z-index: var(--z-index-0); */
 `;
 
 const FlexboxStyled = styled(Flexbox)`

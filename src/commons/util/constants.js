@@ -74,6 +74,23 @@ export const filterStructure = [
       { label: "wiedza o społeczeństwie", value: "wiedza o społeczeństwie" },
     ],
   },
+  // {
+  //   id: "interests",
+  //   label: "Zainteresowania",
+  //   type: "select",
+  //   options: [
+  //     "Sport i rekreacja",
+  //     "Kultura i sztuka",
+  //     "Podróże i turystyka",
+  //     "Książki i czytelnictwo",
+  //     "Gotowanie i kulinaria",
+  //     "Muzyka",
+  //     "Technologia i nowe technologie",
+  //     "Fotografia",
+  //     "Ogrodnictwo",
+  //     "Gry komputerowe",
+  //   ],
+  // },
 ];
 
 export const results = [

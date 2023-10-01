@@ -3,7 +3,9 @@ import T from "prop-types";
 import Icon from "../Icon";
 import styled, { css } from "styled-components/macro";
 
-const Box = styled.div``;
+const Box = styled.div`
+  position: relative;
+`;
 
 const HiddenInput = styled.input`
   position: absolute;
@@ -55,7 +57,15 @@ const Value = styled.div`
   color: var(--primary-100);
 `;
 
-function NumberStepper({ className, min = 1, max = 100, step = 1, value = 1, onChange, size = "medium" }) {
+function NumberStepper({
+  className,
+  min = 1,
+  max = 100,
+  step = 1,
+  value = 1,
+  onChange,
+  size = "medium",
+}) {
   function stepUp() {
     if (value + step > max) return;
     onChange(value + step);
@@ -68,10 +78,21 @@ function NumberStepper({ className, min = 1, max = 100, step = 1, value = 1, onC
 
   return (
     <Box className={className}>
-      <HiddenInput type="number" min={min} max={max} step={step} value={value} onChange={onChange} />
+      <HiddenInput
+        type="number"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={onChange}
+      />
       <VisibleInput size={size}>
         {/* disabled state */}
-        <StepperButton type="button" onClick={stepDown} disabled={value === min}>
+        <StepperButton
+          type="button"
+          onClick={stepDown}
+          disabled={value === min}
+        >
           <Icon name="remove" size={size === "medium" ? 20 : 16} />
         </StepperButton>
         <Value>{value}</Value>
