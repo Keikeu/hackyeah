@@ -1,16 +1,16 @@
 export const APP_URL_DEV = "";
 
 export const categories = [
-  { id: "dupa10", label: "Biznes i ekonomia", icon: "work" },
-  { id: "dupa14", label: "Edukacja", icon: "school" },
-  { id: "dupa15", label: "Inynieria", icon: "settings" },
-  { id: "dupa13", label: "Medycyna", icon: "stethoscope" },
-  { id: "dupa", label: "Przyroda", icon: "psychiatry" },
-  { id: "dupa2", label: "Nauki humanistyczne", icon: "neurology" },
-  { id: "dupa7", label: "Nauki społeczne", icon: "group" },
-  { id: "dupa6", label: "Nauki ścisłe", icon: "science" },
-  { id: "dupa11", label: "Sztuka i kultura", icon: "palette" },
-  { id: "dupa3", label: "Technologie Informacyjne", icon: "computer" },
+  { id: "BUSINESS_AND_ECONOMICS", label: "Biznes i ekonomia", icon: "work" },
+  { id: "EDUCATION", label: "Edukacja", icon: "school" },
+  { id: "ENGINEERING", label: "Inynieria", icon: "settings" },
+  { id: "MEDICINE", label: "Medycyna", icon: "stethoscope" },
+  { id: "NATURAL", label: "Przyroda", icon: "psychiatry" },
+  { id: "HUMANISTIC", label: "Nauki humanistyczne", icon: "neurology" },
+  { id: "SOCIAL", label: "Nauki społeczne", icon: "group" },
+  { id: "SCIENCE", label: "Nauki ścisłe", icon: "science" },
+  { id: "ARTS", label: "Sztuka i kultura", icon: "palette" },
+  { id: "INFORMATION", label: "Technologie Informacyjne", icon: "computer" },
 ];
 
 export const defaultFilters = {

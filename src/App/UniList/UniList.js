@@ -26,7 +26,7 @@ function UniList() {
       const res = await callApi("search/universities", "post", {
         keywords: [searchString],
         location,
-        // categories: categoryList,
+        categories: categoryList,
         favourite: onlyFavorites,
         ...filters,
       });
