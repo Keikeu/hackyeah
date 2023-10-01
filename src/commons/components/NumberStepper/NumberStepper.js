@@ -29,8 +29,8 @@ const VisibleInput = styled.div`
       gap: 4px;
     `}
 
-  ${({ isNeutral }) =>
-    isNeutral &&
+  ${({ $isNeutral }) =>
+    $isNeutral &&
     css`
       /* background: var(--neutral-190); */
       background-color: transparent;
@@ -94,7 +94,7 @@ function NumberStepper({
         value={value}
         onChange={onChange}
       />
-      <VisibleInput size={size} isNeutral={!value}>
+      <VisibleInput size={size} $isNeutral={!value}>
         {/* disabled state */}
         <StepperButton
           type="button"
