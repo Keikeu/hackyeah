@@ -10,6 +10,7 @@ import Modal from "commons/components/Modal";
 import Tag from "commons/components/Tag";
 import TextLink from "commons/components/TextLink";
 import Tooltip from "../../commons/components/Tooltip";
+import Course from "./Course";
 
 const Box = styled(Flexbox)`
   position: relative;
@@ -28,9 +29,9 @@ const FavoriteIcon = styled(Icon)`
   top: 8px;
   right: 8px;
 `;
-const RatingIcon = styled.div`
 
-  background: ${props => props.color || 'white'};
+const RatingBadge = styled.div`
+  background: ${(props) => props.color};
   width: 32px;
   height: 32px;
   border-radius: 4px;
@@ -49,7 +50,7 @@ const FlexTypography = styled(Typography)`
 `;
 
 const DetailsModal = styled(Modal)`
-  max-width: 640px;
+  max-width: 800px;
   max-height: 800px;
   overflow-y: auto;
 `;
@@ -73,17 +74,18 @@ function Result({
   const [isFavorite, setIsFavorite] = useState(initIsFavorite);
 
   function getRatingColor() {
-    if (rating <= 100 && rating >= 75) {
-      return '#93e08c'
-    }else if (rating <= 75 && rating >= 50) {
-      return '#cbdd63'
-    }else if (rating <= 50 && rating >= 25) {
-      return '#facc2b'
+    if (rating <= 100 && rating >= 80) {
+      return "#93e08c";
+    } else if (rating < 80 && rating >= 60) {
+      return "#cbdd63";
+    } else if (rating < 60 && rating >= 40) {
+      return "#facc2b";
+    } else if (rating < 40 && rating >= 20) {
+      return "#f69a67";
+    } else if (rating < 20 && rating >= 0) {
+      return "#ee7575";
     }
-    else if (rating <= 25 && rating >= 0) {
-      return '#ee7575'
-    }
-    return "#f4f9fc";
+    return "#39393a";
   }
 
   return (
@@ -115,15 +117,15 @@ function Result({
             setIsFavorite(!isFavorite);
           }}
         />
-        <Tooltip label={"Ranking Perspektywy 2023"} triggerStyles={{
-          position: "absolute",
-          bottom: "8px",
-          right: "8px"
-        }}>
-          <RatingIcon
-            color={getRatingColor()}
-            size={20}
-          >{rating}</RatingIcon>
+        <Tooltip
+          label={"Ranking Perspektywy 2023"}
+          triggerStyles={{
+            position: "absolute",
+            bottom: "8px",
+            right: "8px",
+          }}
+        >
+          <RatingBadge color={getRatingColor()}>{rating}</RatingBadge>
         </Tooltip>
         <Flexbox
           flexDirection="column"
@@ -139,7 +141,7 @@ function Result({
             <Icon name="location_on" />
             {location}
           </FlexTypography>
-          <Flexbox flexWrap="wrap" gap={4} marginTop={8}>
+          <Flexbox flexWrap="wrap" gap={4} marginTop={8} marginRight={24}>
             {courses.map((course) => (
               <Tag key={course.name} label={course.name} color="grey" />
             ))}
@@ -156,24 +158,29 @@ function Result({
               width="100%"
               height="200px"
             />
-            <Tooltip label={"Ranking Perspektywy 2023"} triggerStyles={{
-              position: "absolute",
-              bottom: "665px",
-              right: "580px"
-            }}>
-              <RatingIcon
-                  color={getRatingColor()}
-                  size={20}
-              >{rating}</RatingIcon>
-            </Tooltip>
-            <Typography variant="h3">{name}</Typography>
-            <TextLink to={rest.siteURL}>{rest.siteURL}</TextLink>
-            <Typography variant="paragraph" margin="0 0 16px 0">
+
+            <Flexbox justifyContent="space-between" alignItems="center">
+              <Typography variant="h2">{name}</Typography>
+              <Tooltip label="Ranking Perspektywy 2023">
+                <RatingBadge color={getRatingColor()}>{rating}</RatingBadge>
+              </Tooltip>
+            </Flexbox>
+            <FlexTypography variant="body">
+              <Icon name="location_on" />
               {rest.address.city}, ul.{rest.address.street}{" "}
               {rest.address.buildingNumber}
-            </Typography>
+            </FlexTypography>
+            <TextLink to={rest.siteURL} isAbsolute>
+              {rest.siteURL}
+            </TextLink>
 
-            <Typography variant="paragraph">
+            <Flexbox flexWrap="wrap" gap={24} marginTop={32}>
+              {rest.courseDegrees.map((course) => (
+                <Course key={course.name} course={course} />
+              ))}
+            </Flexbox>
+
+            <Typography variant="paragraph" margin="32px 0 0 0">
               <b>Typ uczelni:</b>{" "}
               {rest.type === "PUBLIC" ? "Publiczna" : "Prywatna"}
             </Typography>
@@ -184,7 +191,7 @@ function Result({
               <b>Kluby:</b> {rest.clubs.map((el) => el.name).join(", ")}
             </Typography>
             <Typography variant="paragraph">
-              <b>Udogodnienia:</b>{" "}
+              <b>W pobliżu:</b>{" "}
               {rest.amenities
                 .map((el) => `${el.name} - ${el.distance}m`)
                 .join(", ")}
@@ -193,16 +200,6 @@ function Result({
               <b>Udogodnienia dla niepełnosprawnych:</b>{" "}
               {rest.accessibilitiesForDisabled.map((el) => el).join(", ")}
             </Typography>
-
-            <Typography variant="h4" margin="12px 0 0 0">
-              Kierunki studiów:
-            </Typography>
-            <Flexbox flexWrap="wrap" gap={4}>
-              {rest.courseDegrees.map((course) => (
-                <Tag key={course.name} label={course.name} color="grey" />
-              ))}
-            </Flexbox>
-            <Typography variant="paragraph"></Typography>
           </Flexbox>
         </DetailsModal>
       )}

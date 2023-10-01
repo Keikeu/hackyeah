@@ -4,6 +4,11 @@ import Flexbox from "commons/components/Flexbox";
 import Typography from "commons/components/Typography";
 import RadioButtonWrap from "commons/components/RadioButtonWrap";
 import NumberStepper from "commons/components/NumberStepper";
+import styled from "styled-components/macro";
+
+const RadioButtonWrapFullWidth = styled(RadioButtonWrap)`
+  width: 100%;
+`;
 
 function Filter({
   type,
@@ -24,7 +29,7 @@ function Filter({
       {type === "select" && (
         <Flexbox gap={12} alignItems="flex-start" flexWrap="wrap">
           {options.map((option) => (
-            <RadioButtonWrap
+            <RadioButtonWrapFullWidth
               key={option.value}
               label={option.label}
               isActive={value?.includes(option.value)}

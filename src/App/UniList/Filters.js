@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import T from "prop-types";
 import styled from "styled-components/macro";
 import Typography from "commons/components/Typography";
@@ -7,7 +7,7 @@ import Filter from "./Filter";
 import { filterStructure } from "commons/util/constants";
 
 const Box = styled.div`
-  width: 360px;
+  width: 380px;
   flex-shrink: 0;
   padding: 16px 8px 16px 32px;
 `;
@@ -19,8 +19,8 @@ const FlexboxStyled = styled(Flexbox)`
 
 function Filters({ className, filters, setFilters }) {
   const userLocation = {
-      lat: 50.067469,
-      lng: 19.991694,
+    lat: 50.067469,
+    lng: 19.991694,
   };
 
   function updateFilters(id, value) {

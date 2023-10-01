@@ -11,6 +11,7 @@ const Circle = styled.div`
   border: 2px solid var(--neutral-180);
   background-color: var(--neutral-200);
   border-radius: 50%;
+  flex-shrink: 0;
 
   ${({ $isActive }) =>
     $isActive &&
