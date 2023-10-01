@@ -38,22 +38,22 @@ function Results({
       <Typography variant="h3" margin="0 0 16px 0">
         Wyniki wyszukiwania
       </Typography>
+      <Tabs
+        tabs={[
+          { id: "all", label: "Wszystkie wyniki" },
+          { id: "fav", label: "Ulubione" },
+        ]}
+        setActiveTabId={toggleFavTab}
+        activeTabId={activeTabId}
+      />
       {isLoading ? (
-        <Loader />
+        <Loader containerHeight="200px" />
       ) : (
         <>
           {!results.length ? (
             <Typography margin="16px 0 0 0">Brak wyników</Typography>
           ) : (
             <>
-              <Tabs
-                tabs={[
-                  { id: "all", label: "All results" },
-                  { id: "fav", label: "Favorites" },
-                ]}
-                setActiveTabId={toggleFavTab}
-                activeTabId={activeTabId}
-              />
               {results.map((result) => (
                 <Result
                   key={result.id}
