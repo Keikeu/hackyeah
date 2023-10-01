@@ -18,6 +18,7 @@ const Box = styled(Flexbox)`
   box-shadow: var(--shadow-1);
   overflow: hidden;
   cursor: pointer;
+  min-height: 140px;
 
   &:hover {
     box-shadow: var(--shadow-2);
@@ -141,7 +142,7 @@ function Result({
             <Icon name="location_on" />
             {location}
           </FlexTypography>
-          <Flexbox flexWrap="wrap" gap={4} marginTop={8} marginRight={24}>
+          <Flexbox flexWrap="wrap" gap={4} marginTop="auto" marginRight={24}>
             {courses.map((course) => (
               <Tag key={course.name} label={course.name} color="grey" />
             ))}
@@ -196,16 +197,14 @@ function Result({
             </Typography>
             <Typography variant="paragraph">
               <Flexbox flexWrap="wrap" gap={24} marginTop={35}>
-              <b style={{fontSize:"30px"}}>Kierunki</b>{" "}
+                <b style={{ fontSize: "30px" }}>Kierunki</b>{" "}
               </Flexbox>
               <Flexbox flexWrap="wrap" gap={24} marginTop={32}>
-              {rest.courseDegrees.map((course) => (
-                    <Course key={course.name} course={course} />
+                {rest.courseDegrees.map((course) => (
+                  <Course key={course.name} course={course} />
                 ))}
               </Flexbox>
             </Typography>
-
-
           </Flexbox>
         </DetailsModal>
       )}

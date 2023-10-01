@@ -5,6 +5,7 @@ import Typography from "commons/components/Typography";
 import Result from "./Result";
 import Tabs from "commons/components/Tabs";
 import { AnimatePresence, motion, useIsPresent } from "framer-motion";
+import Loader from "commons/components/Loader";
 
 const Box = styled.div`
   width: 100%;
@@ -12,6 +13,17 @@ const Box = styled.div`
   overflow-y: auto;
   position: relative;
   padding: 16px;
+`;
+
+const TypographyRelative = styled(Typography)`
+  position: relative;
+`;
+
+const LoaderAbsolute = styled(Loader)`
+  position: absolute;
+  top: -4px;
+  left: 220px;
+  width: 40px;
 `;
 
 const MotionCard = styled(motion.div)``;
@@ -54,9 +66,10 @@ function Results({
 
   return (
     <Box className={className}>
-      <Typography variant="h3" margin="0 0 16px 0">
+      <TypographyRelative variant="h3" margin="0 0 16px 0">
         Wyniki wyszukiwania
-      </Typography>
+        {isLoading && <LoaderAbsolute />}
+      </TypographyRelative>
       <Tabs
         tabs={[
           { id: "all", label: "Wszystkie wyniki" },
