@@ -40,6 +40,13 @@ function UniList() {
     getUniversities();
   }, [searchString, location, categoryList, onlyFavorites, filters, refetch]);
 
+  function resetFilters() {
+    setSearchString("");
+    setLocation();
+    setCategoryList([]);
+    setFilters(defaultFilters);
+  }
+
   return (
     <Box>
       <Navigation
@@ -47,6 +54,7 @@ function UniList() {
         setSearchString={setSearchString}
         location={location}
         setLocation={setLocation}
+        resetFilters={resetFilters}
       />
       <Header
         categoryList={categoryList}

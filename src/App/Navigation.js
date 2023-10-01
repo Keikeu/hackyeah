@@ -49,6 +49,7 @@ function Navigation({
   setSearchString,
   location,
   setLocation,
+  resetFilters,
 }) {
   return (
     <>
@@ -106,6 +107,14 @@ function Navigation({
             }
             placement="bottom-start"
           />
+          <Button
+            variant="tertiary"
+            size="medium"
+            icon="filter_alt_off"
+            onClick={resetFilters}
+          >
+            Wyczyść wszystkie filtry
+          </Button>
         </FlexboxStyled>
       </Box>
       <NavigationPlaceholder />
@@ -115,6 +124,11 @@ function Navigation({
 
 Navigation.propTypes = {
   className: T.string,
+  searchString: T.string,
+  setSearchString: T.func,
+  location: T.string,
+  setLocation: T.func,
+  resetFilters: T.func,
 };
 
 export default Navigation;
