@@ -156,6 +156,16 @@ function Result({
               width="100%"
               height="200px"
             />
+            <Tooltip label={"Ranking Perspektywy 2023"} triggerStyles={{
+              position: "absolute",
+              bottom: "665px",
+              right: "580px"
+            }}>
+              <RatingIcon
+                  color={getRatingColor()}
+                  size={20}
+              >{rating}</RatingIcon>
+            </Tooltip>
             <Typography variant="h3">{name}</Typography>
             <TextLink to={rest.siteURL}>{rest.siteURL}</TextLink>
             <Typography variant="paragraph" margin="0 0 16px 0">
