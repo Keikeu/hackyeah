@@ -195,16 +195,14 @@ function Result({
               <b>Udogodnienia dla niepełnosprawnych:</b>{" "}
               {rest.accessibilitiesForDisabled.map((el) => el).join(", ")}
             </Typography>
-            <Typography variant="paragraph">
-              <Flexbox flexWrap="wrap" gap={24} marginTop={35}>
-                <b style={{ fontSize: "30px" }}>Kierunki</b>{" "}
-              </Flexbox>
-              <Flexbox flexWrap="wrap" gap={24} marginTop={32}>
-                {rest.courseDegrees.map((course) => (
-                  <Course key={course.name} course={course} />
-                ))}
-              </Flexbox>
+            <Typography variant="h3" margin="32px 0 0 0">
+              Kierunki:
             </Typography>
+            <Flexbox flexWrap="wrap" gap={24}>
+              {rest.courseDegrees.map((course) => (
+                <Course key={course.name} course={course} />
+              ))}
+            </Flexbox>
           </Flexbox>
         </DetailsModal>
       )}

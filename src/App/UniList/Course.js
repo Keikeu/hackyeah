@@ -22,7 +22,7 @@ function Course({ className, course }) {
       {console.log(course)}
       <Typography variant="h3">{course.name}</Typography>
 
-      <Flexbox gap={32} margin="12px 0 24px 0">
+      <Flexbox gap={32} margin="16px 0 32px 0">
         <Detail
           variant="vertical"
           label="Poziom studiów"
@@ -41,8 +41,13 @@ function Course({ className, course }) {
         />
       </Flexbox>
 
-      <strong>Syllabus</strong>
-      <Typography variant="paragraph">{course.description}</Typography>
+      <Typography variant="h3">Syllabus:</Typography>
+      {course.syllabus.semesters.map((semester) => (
+        <Flexbox padding="8px 0" flexDirection="column">
+          <b>Semestr {semester.ordinal}:</b>
+          {semester.subjects.join(", ")}
+        </Flexbox>
+      ))}
     </Box>
   );
 }
