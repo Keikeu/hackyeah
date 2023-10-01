@@ -36,16 +36,30 @@ function Map({ className, universities, setFilters,
         userLocation.lat,
         userLocation.lng,
       ]);
-      setFilters((currentFilters) => ({
-        ...currentFilters,
-        distance: {
-          ...filters?.distance,
-          userCoordinates: {
-            latitude: userLocation.lat,
-            longitude: userLocation.lng,
+      if (filters.distance) {
+        setFilters((currentFilters) => ({
+          ...currentFilters,
+          distance: {
+            ...filters?.distance,
+            userCoordinates: {
+              latitude: userLocation.lat,
+              longitude: userLocation.lng,
+            },
           },
-        },
-      }))
+        }))
+      }else {
+        setFilters((currentFilters) => ({
+          ...currentFilters,
+          distance: {
+            distance: 0,
+            userCoordinates: {
+              latitude: userLocation.lat,
+              longitude: userLocation.lng,
+            },
+          },
+        }))
+      }
+
     }
     setUserLocationEditing(!userLocationEditing);
   }
