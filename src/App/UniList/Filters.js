@@ -9,7 +9,7 @@ import { filterStructure } from "commons/util/constants";
 const Box = styled.div`
   width: 360px;
   flex-shrink: 0;
-  padding-right: 16px;
+  padding: 16px 8px 16px 32px;
 `;
 
 const FlexboxStyled = styled(Flexbox)`

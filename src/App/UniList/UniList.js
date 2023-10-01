@@ -54,7 +54,7 @@ function UniList() {
         refetch={refetch}
         setRefetch={setRefetch}
       />
-      <Flexbox padding="16px 32px">
+      <Flexbox>
         <Filters filters={filters} setFilters={setFilters} />
         <Results
           isLoading={isLoading}
