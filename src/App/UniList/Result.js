@@ -40,6 +40,10 @@ const DetailsModal = styled(Modal)`
   max-height: 800px;
 `;
 
+const ImageRounded = styled(Image)`
+  border-radius: var(--border-radius-1);
+`;
+
 function Result({
   className,
   id,
@@ -106,8 +110,8 @@ function Result({
 
       {showModal && (
         <DetailsModal handleClose={() => setShowModal(false)}>
-          <Flexbox flexDirection="column" padding="16px 24px" gap={8}>
-            <Image
+          <Flexbox flexDirection="column" padding="24px" gap={8}>
+            <ImageRounded
               src={imageUrl || ""}
               alt={`${name} image`}
               width="100%"

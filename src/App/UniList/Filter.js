@@ -15,6 +15,7 @@ function Filter({
   step = 1,
   content,
   onChange,
+  isSingleChoice,
 }) {
   return (
     <Flexbox flexDirection="column" padding="16px" gap={10}>
@@ -28,6 +29,7 @@ function Filter({
               label={option.label}
               isActive={value?.includes(option.value)}
               onClick={() => onChange(option.value)}
+              isSingleChoice={isSingleChoice}
             />
           ))}
         </Flexbox>
@@ -39,11 +41,13 @@ function Filter({
             label="Tak"
             isActive={!!value}
             onClick={() => onChange(true)}
+            isSingleChoice
           />
           <RadioButtonWrap
             label="Nie"
             isActive={!value}
             onClick={() => onChange(false)}
+            isSingleChoice
           />
         </Flexbox>
       )}
@@ -76,6 +80,7 @@ Filter.propTypes = {
   content: T.oneOfType([T.object, T.string, T.node]),
   onChange: T.func,
   validate: T.func,
+  isSingleChoice: T.bool,
 };
 
 export default Filter;

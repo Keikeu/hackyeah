@@ -41,6 +41,7 @@ function RadioButtonWrap({
   isActive = false,
   children,
   onClick,
+  isSingleChoice,
 }) {
   return (
     <Box
@@ -50,7 +51,11 @@ function RadioButtonWrap({
       $isActive={isActive}
       onClick={onClick}
     >
-      <RadioButton label={label} isActive={isActive} />
+      <RadioButton
+        label={label}
+        isActive={isActive}
+        isSingleChoice={isSingleChoice}
+      />
       {children && <Content>{children}</Content>}
     </Box>
   );
@@ -62,6 +67,7 @@ RadioButtonWrap.propTypes = {
   isActive: T.bool,
   children: T.oneOfType([T.object, T.string, T.node]),
   onClick: T.func.isRequired,
+  isSingleChoice: T.bool,
 };
 
 export default RadioButtonWrap;

@@ -18,6 +18,22 @@ const Circle = styled.div`
       background-color: var(--primary-100);
       border: none;
     `}
+
+  ${({ $isActive, $isSingleChoice }) =>
+    $isActive &&
+    $isSingleChoice &&
+    css`
+      &:after {
+        content: "";
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 8px;
+        height: 8px;
+        background-color: var(--neutral-200);
+        border-radius: 50%;
+      }
+    `}
 `;
 
 const Check = styled(Icon)`
@@ -26,11 +42,19 @@ const Check = styled(Icon)`
   left: -2px;
 `;
 
-function RadioButton({ className, label, isActive, onClick }) {
+function RadioButton({
+  className,
+  label,
+  isActive,
+  onClick,
+  isSingleChoice = false,
+}) {
   return (
     <Flexbox className={className} gap={12} onClick={onClick}>
-      <Circle $isActive={isActive}>
-        {isActive && <Check size={25} name="check" color="neutral-200" />}
+      <Circle $isActive={isActive} $isSingleChoice={isSingleChoice}>
+        {isActive && !isSingleChoice && (
+          <Check size={25} name="check" color="neutral-200" />
+        )}
       </Circle>
       {label}
     </Flexbox>

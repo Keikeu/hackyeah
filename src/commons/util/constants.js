@@ -26,11 +26,6 @@ export const filterStructure = [
   //   type: "number",
   // },
   {
-    id: "stationary",
-    label: "Stacjonarne",
-    type: "bool",
-  },
-  {
     id: "universityType",
     label: "Typ uczelnii",
     type: "select",

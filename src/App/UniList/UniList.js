@@ -12,7 +12,7 @@ const Box = styled.div``;
 
 function UniList() {
   const [searchString, setSearchString] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState();
   const [categoryList, setCategoryList] = useState([]);
   const [universities, setUniversities] = useState([]);
   const [onlyFavorites, setOnlyFavorites] = useState(false);
@@ -25,7 +25,7 @@ function UniList() {
       setIsLoading(true);
       const res = await callApi("search/universities", "post", {
         keywords: [searchString],
-        location,
+        universityCity: location ? [location] : undefined,
         categories: categoryList,
         favourite: onlyFavorites,
         ...filters,

@@ -100,6 +100,7 @@ function Navigation({
                   ]}
                   value={location}
                   onChange={setLocation}
+                  isSingleChoice
                 />
               </LocationsDropdown>
             }

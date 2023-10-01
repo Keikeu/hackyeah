@@ -56,6 +56,18 @@ function Filters({ className, filters, setFilters }) {
     <Box className={className}>
       <Typography variant="h3">Filtry</Typography>
       <FlexboxStyled flexDirection="column" gap={8} marginTop={16} isBordered>
+        <Filter
+          id="stationary"
+          label="Stacjonarne"
+          type="bool"
+          value={filters.stationary}
+          onChange={(value) =>
+            setFilters((currentFilters) => ({
+              ...currentFilters,
+              stationary: value,
+            }))
+          }
+        />
         {filterStructure.map((el) => (
           <Filter
             {...el}
@@ -81,7 +93,10 @@ function Filters({ className, filters, setFilters }) {
               },
               distance: value,
             };
-            setFilters({ ...filters, distance: result });
+            setFilters((currentFilters) => ({
+              ...currentFilters,
+              distance: result,
+            }));
           }}
         />
       </FlexboxStyled>
