@@ -6,6 +6,7 @@ import RadioButtonWrap from "commons/components/RadioButtonWrap";
 import NumberStepper from "commons/components/NumberStepper";
 import styled from "styled-components/macro";
 import Button from "commons/components/Button";
+import Tooltip from "commons/components/Tooltip";
 
 const RadioButtonWrapFullWidth = styled(RadioButtonWrap)`
   width: 100%;
@@ -22,6 +23,7 @@ function Filter({
   content,
   onChange,
   isSingleChoice,
+  disabled,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -55,20 +57,30 @@ function Filter({
       )}
 
       {type === "bool" && (
-        <Flexbox gap={4} alignItems="flex-start" flexWrap="wrap">
-          <RadioButtonWrap
-            label="Tak"
-            isActive={!!value}
-            onClick={() => onChange(true)}
-            isSingleChoice
-          />
-          <RadioButtonWrap
-            label="Nie"
-            isActive={!value}
-            onClick={() => onChange(false)}
-            isSingleChoice
-          />
-        </Flexbox>
+        <Tooltip
+          label={
+            disabled
+              ? "Wgraj swoje wyniki maturalne, aby móc uwzględnić je w filtrach"
+              : ""
+          }
+        >
+          <Flexbox gap={4} alignItems="flex-start" flexWrap="wrap">
+            <RadioButtonWrap
+              label="Tak"
+              isActive={!!value}
+              onClick={() => onChange(true)}
+              disabled={disabled}
+              isSingleChoice
+            />
+            <RadioButtonWrap
+              label="Nie"
+              isActive={!value}
+              onClick={() => onChange(false)}
+              disabled={disabled}
+              isSingleChoice
+            />
+          </Flexbox>
+        </Tooltip>
       )}
 
       {type === "number" && (
@@ -100,6 +112,7 @@ Filter.propTypes = {
   onChange: T.func,
   validate: T.func,
   isSingleChoice: T.bool,
+  disabled: T.bool,
 };
 
 export default Filter;

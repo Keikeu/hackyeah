@@ -4,6 +4,8 @@ import styled, { css } from "styled-components/macro";
 import Flexbox from "../Flexbox";
 import Icon from "../Icon";
 
+const FlexboxStyled = styled(Flexbox)``;
+
 const Circle = styled.div`
   position: relative;
   width: 20px;
@@ -35,6 +37,13 @@ const Circle = styled.div`
         border-radius: 50%;
       }
     `}
+
+  ${({ $isActive, disabled }) =>
+    $isActive &&
+    disabled &&
+    css`
+      background-color: var(--neutral-170);
+    `}
 `;
 
 const Check = styled(Icon)`
@@ -49,16 +58,26 @@ function RadioButton({
   isActive,
   onClick,
   isSingleChoice = false,
+  disabled = false,
 }) {
   return (
-    <Flexbox className={className} gap={12} onClick={onClick}>
-      <Circle $isActive={isActive} $isSingleChoice={isSingleChoice}>
+    <FlexboxStyled
+      className={className}
+      gap={12}
+      onClick={disabled ? () => {} : onClick}
+      disabled={disabled}
+    >
+      <Circle
+        $isActive={isActive}
+        $isSingleChoice={isSingleChoice}
+        disabled={disabled}
+      >
         {isActive && !isSingleChoice && (
           <Check size={25} name="check" color="neutral-200" />
         )}
       </Circle>
       {label}
-    </Flexbox>
+    </FlexboxStyled>
   );
 }
 
@@ -67,6 +86,7 @@ RadioButton.propTypes = {
   label: T.string.isRequired,
   isActive: T.bool,
   onClick: T.func,
+  disabled: T.bool,
 };
 
 export default RadioButton;

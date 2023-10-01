@@ -145,23 +145,10 @@ function Header({
   setCategoryList,
   refetch,
   setRefetch,
+  finalsResults,
+  setFinalsResults,
 }) {
   const [showModal, setShowModal] = useState(false);
-  const [results, setResults] = useState([
-    { id: 0, subject: "", percentage: "" },
-  ]);
-
-  useEffect(() => {
-    async function getUserFinals() {
-      const res = await callApi("users/finals", "get");
-      if (res && res.length !== 0) {
-        setResults(res);
-      }
-    }
-
-    getUserFinals();
-  }, []);
-
   function toggleCategory(id) {
     if (categoryList.includes(id)) {
       setCategoryList(categoryList.filter((categoryId) => categoryId !== id));
@@ -205,7 +192,7 @@ function Header({
         <ModalStyled handleClose={() => setShowModal(false)}>
           <Flexbox flexDirection="column" padding={40} gap={24}>
             <Typography variant="h3">Wyniki maturalne</Typography>
-            {results.map((result) => (
+            {finalsResults.map((result) => (
               <React.Fragment key={result.id}>
                 <Flexbox alignItems="flex-end" gap={16}>
                   <SelectInput
@@ -219,16 +206,16 @@ function Header({
                       { id: "angielski", label: "Angielski" },
                     ].map((it) => ({
                       ...it,
-                      disabled: results.some((e) => e.subject === it.id),
+                      disabled: finalsResults.some((e) => e.subject === it.id),
                     }))}
                     value={result.subject}
                     onChange={(e) => {
-                      let newArr = [...results]; // copying the old datas array
+                      let newArr = [...finalsResults]; // copying the old datas array
                       if (!newArr[result.id]) {
                         return;
                       }
                       newArr[result.id].subject = e;
-                      setResults(newArr);
+                      setFinalsResults(newArr);
                     }}
                   />
                   <NumberInputStyled
@@ -238,12 +225,12 @@ function Header({
                     min={0}
                     max={100}
                     onChange={(e) => {
-                      let newArr = [...results]; // copying the old datas array
+                      let newArr = [...finalsResults]; // copying the old datas array
                       if (!newArr[result.id]) {
                         return;
                       }
                       newArr[result.id].percentage = e;
-                      setResults(newArr);
+                      setFinalsResults(newArr);
                     }}
                   />
                   <Button
@@ -251,7 +238,9 @@ function Header({
                     icon="delete"
                     size="medium"
                     onClick={() => {
-                      setResults(results.filter((res) => res.id !== result.id));
+                      setFinalsResults(
+                        finalsResults.filter((res) => res.id !== result.id)
+                      );
                     }}
                   />
                 </Flexbox>
@@ -261,9 +250,9 @@ function Header({
               variant="secondary"
               icon="add"
               onClick={() =>
-                setResults([
-                  ...results,
-                  { id: results.length, subject: "", percentage: "" },
+                setFinalsResults([
+                  ...finalsResults,
+                  { id: finalsResults.length, subject: "", percentage: "" },
                 ])
               }
             >
@@ -274,7 +263,7 @@ function Header({
               size="medium"
               onClick={() => {
                 setShowModal(false);
-                callApi("users/finals", "put", results);
+                callApi("users/finals", "put", finalsResults);
                 setRefetch(!refetch);
               }}
               marginTop="auto"

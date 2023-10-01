@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import T from "prop-types";
 import styled from "styled-components/macro";
 import Typography from "commons/components/Typography";
@@ -6,6 +6,7 @@ import Flexbox from "commons/components/Flexbox";
 import Filter from "./Filter";
 import { filterStructure } from "commons/util/constants";
 import callLocalStorage from "../../commons/util/callLocalStorage";
+import callApi from "commons/util/callApi";
 
 const Box = styled.div`
   width: 380px;
@@ -18,14 +19,17 @@ const FlexboxStyled = styled(Flexbox)`
   height: calc(100vh - 270px);
 `;
 
-function Filters({ className, filters, setFilters }) {
-  const position = callLocalStorage("userLocation", "get") || [50.06143, 19.93658];
+function Filters({ className, filters, setFilters, finalsResults }) {
+  const position = callLocalStorage("userLocation", "get") || [
+    50.06143, 19.93658,
+  ];
+
   const userLocation = {
     lat: position[0],
     lng: position[1],
   };
 
-    function updateFilters(id, value) {
+  function updateFilters(id, value) {
     let newValue;
 
     if (!filters[id]) {
@@ -54,6 +58,9 @@ function Filters({ className, filters, setFilters }) {
               ...currentFilters,
               graduationExamResults: value,
             }))
+          }
+          disabled={
+            !finalsResults || !finalsResults.filter((el) => el.subject).length
           }
         />
         <Filter
@@ -85,14 +92,14 @@ function Filters({ className, filters, setFilters }) {
               distance: value,
             };
             setFilters((currentFilters) => {
-                if(result.distance === 0) {
-                    const {distance, ...newFilters} = currentFilters
-                    return {...newFilters}
-                }
-                return ({
-                    ...currentFilters,
-                    distance: result,
-                })
+              if (result.distance === 0) {
+                const { distance, ...newFilters } = currentFilters;
+                return { ...newFilters };
+              }
+              return {
+                ...currentFilters,
+                distance: result,
+              };
             });
           }}
         />

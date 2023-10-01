@@ -2,7 +2,7 @@ import React from "react";
 import T from "prop-types";
 import styled from "styled-components/macro";
 
-import {MapContainer, Marker, Popup, TileLayer, useMapEvents} from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import MapUserMarker from "./MapUserMarker";
 import Button from "../../commons/components/Button";
 import callLocalStorage from "../../commons/util/callLocalStorage";
@@ -16,35 +16,40 @@ const Box = styled.div`
 `;
 
 const ButtonStyled = styled(Button)`
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    z-index: 650;
-`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 650;
+`;
 
 function Map({ className, universities }) {
-  const position = callLocalStorage("userLocation", "get") || [50.06143, 19.93658];
-  const [userLocation, setUserLocation] =  React.useState(position);
+  const position = callLocalStorage("userLocation", "get") || [
+    50.06143, 19.93658,
+  ];
+  const [userLocation, setUserLocation] = React.useState(position);
   const [userLocationEditing, setUserLocationEditing] = React.useState(false);
-  
-    function handleUserLocationEditingToggle() {
-        if (userLocationEditing) {
-            callLocalStorage("userLocation", "set", [userLocation.lat, userLocation.lng]);
-        }
-        setUserLocationEditing(!userLocationEditing);
+
+  function handleUserLocationEditingToggle() {
+    if (userLocationEditing) {
+      callLocalStorage("userLocation", "set", [
+        userLocation.lat,
+        userLocation.lng,
+      ]);
     }
+    setUserLocationEditing(!userLocationEditing);
+  }
 
   return (
-    <Box className={className} editing={userLocationEditing}>
-      <ButtonStyled variant="tertiary" onClick={handleUserLocationEditingToggle}>
-          { userLocationEditing ? "Zapisz lokację użytkownika" : "Ustaw lokację użytkownika"}
-      </ButtonStyled>
-      <MapContainer
-        center={
-          position
-        }
-        zoom={12}
+    <Box className={className}>
+      <ButtonStyled
+        variant="tertiary"
+        onClick={handleUserLocationEditingToggle}
       >
+        {userLocationEditing
+          ? "Zapisz lokację użytkownika"
+          : "Ustaw lokację użytkownika"}
+      </ButtonStyled>
+      <MapContainer center={position} zoom={12}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=oe69RYYnrr6UsgG1XbmVkHMlBtWBvQhqKQHG61ZIcECAXRVgS1dCOCpeCdGx654i"
@@ -56,7 +61,11 @@ function Map({ className, universities }) {
             </Marker>
           );
         })}
-        <MapUserMarker userLocationEditing={userLocationEditing} userLocation={userLocation} setUserLocation={setUserLocation} />
+        <MapUserMarker
+          userLocationEditing={userLocationEditing}
+          userLocation={userLocation}
+          setUserLocation={setUserLocation}
+        />
       </MapContainer>
     </Box>
   );

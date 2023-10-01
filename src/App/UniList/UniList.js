@@ -22,6 +22,21 @@ function UniList() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [finalsResults, setFinalsResults] = useState([
+    { id: 0, subject: "", percentage: "" },
+  ]);
+
+  useEffect(() => {
+    async function getUserFinals() {
+      const res = await callApi("users/finals", "get");
+      if (res && res.length !== 0) {
+        setFinalsResults(res);
+      }
+    }
+
+    getUserFinals();
+  }, []);
+
   useEffect(() => {
     async function getUniversities() {
       setIsLoading(true);
@@ -61,9 +76,15 @@ function UniList() {
         setCategoryList={setCategoryList}
         refetch={refetch}
         setRefetch={setRefetch}
+        finalsResults={finalsResults}
+        setFinalsResults={setFinalsResults}
       />
       <Flexbox>
-        <Filters filters={filters} setFilters={setFilters} />
+        <Filters
+          filters={filters}
+          setFilters={setFilters}
+          finalsResults={finalsResults}
+        />
         <Results
           isLoading={isLoading}
           results={universities}

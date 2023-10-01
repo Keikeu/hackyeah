@@ -28,6 +28,18 @@ const Box = styled(Flexbox)`
         background-color: var(--primary-180);
       }
     `}
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      background-color: var(--neutral-190);
+      color: var(--neutral-160);
+      cursor: default;
+
+      &:hover {
+        background-color: var(--neutral-190) !important;
+      }
+    `}
 `;
 
 const Content = styled.div`
@@ -44,6 +56,7 @@ function RadioButtonWrap({
   children,
   onClick,
   isSingleChoice,
+  disabled,
 }) {
   return (
     <Box
@@ -51,12 +64,14 @@ function RadioButtonWrap({
       flexDirection="column"
       gap={12}
       $isActive={isActive}
-      onClick={onClick}
+      onClick={disabled ? () => {} : onClick}
+      disabled={disabled}
     >
       <RadioButton
         label={label}
         isActive={isActive}
         isSingleChoice={isSingleChoice}
+        disabled={disabled}
       />
       {children && <Content>{children}</Content>}
     </Box>
@@ -70,6 +85,7 @@ RadioButtonWrap.propTypes = {
   children: T.oneOfType([T.object, T.string, T.node]),
   onClick: T.func.isRequired,
   isSingleChoice: T.bool,
+  disabled: T.bool,
 };
 
 export default RadioButtonWrap;
