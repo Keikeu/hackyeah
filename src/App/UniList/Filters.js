@@ -57,6 +57,17 @@ function Filters({ className, filters, setFilters }) {
       <Typography variant="h3">Filtry</Typography>
       <FlexboxStyled flexDirection="column" gap={8} marginTop={16} isBordered>
         <Filter
+          id="graduationExamResults"
+          label="Aplikuj moje wyniki maturalne"
+          type="bool"
+          value={filters.graduationExamResults}
+          onChange={(value) =>
+            setFilters((currentFilters) => ({
+              ...currentFilters,
+                graduationExamResults: value,
+            }))
+          }
+        /><Filter
           id="stationary"
           label="Stacjonarne"
           type="bool"

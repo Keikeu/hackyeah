@@ -17,6 +17,7 @@ function UniList() {
   const [universities, setUniversities] = useState([]);
   const [onlyFavorites, setOnlyFavorites] = useState(false);
   const [filters, setFilters] = useState({});
+  const [refetch, setRefetch] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -36,7 +37,7 @@ function UniList() {
     }
 
     getUniversities();
-  }, [searchString, location, categoryList, onlyFavorites, filters]);
+  }, [searchString, location, categoryList, onlyFavorites, filters, refetch]);
 
   return (
     <Box>
@@ -46,7 +47,7 @@ function UniList() {
         location={location}
         setLocation={setLocation}
       />
-      <Header categoryList={categoryList} setCategoryList={setCategoryList} />
+      <Header categoryList={categoryList} setCategoryList={setCategoryList} refetch={refetch} setRefetch={setRefetch}/>
       <Flexbox padding="16px 32px">
         <Filters filters={filters} setFilters={setFilters} />
         <Results

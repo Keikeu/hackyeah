@@ -131,7 +131,7 @@ const NumberInputStyled = styled(NumberInput)`
   width: 200px;
 `;
 
-function Header({ className, categoryList, setCategoryList }) {
+function Header({ className, categoryList, setCategoryList,refetch ,setRefetch }) {
   const [showModal, setShowModal] = useState(false);
   const [results, setResults] = useState([
     { id: 0, subject: "", percentage: "" },
@@ -260,6 +260,7 @@ function Header({ className, categoryList, setCategoryList }) {
             onClick={() => {
               setShowModal(false);
               callApi("users/finals", "put", results);
+              setRefetch(!refetch)
             }}
           >
             Zapisz
