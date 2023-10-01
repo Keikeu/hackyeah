@@ -1,39 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import T from "prop-types";
 import styled from "styled-components/macro";
-import L from 'leaflet';
 
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import {MapContainer, Marker, Popup, TileLayer, useMapEvents} from "react-leaflet";
+import MapUserMarker from "./MapUserMarker";
+import Button from "../../commons/components/Button";
+import callLocalStorage from "../../commons/util/callLocalStorage";
 
 const Box = styled.div`
+  position: relative;
   width: 40%;
   flex-shrink: 0;
   background-color: var(--neutral-190);
   z-index: var(--z-index-0);
 `;
 
+const ButtonStyled = styled(Button)`
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 650;
+`
+
 function Map({ className, universities }) {
-  const position = [50.06143, 19.93658];
-  const userLocation = {
-    lat: 50.067469,
-    lng: 19.991694,
-  };
-
-
-  const redIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41],
-    shadowAnchor: [12, 41]
-  });
+  const position = callLocalStorage("userLocation", "get") || [50.06143, 19.93658];
+  const [userLocation, setUserLocation] =  React.useState(position);
+  const [userLocationEditing, setUserLocationEditing] = React.useState(false);
+  
+    function handleUserLocationEditingToggle() {
+        if (userLocationEditing) {
+            callLocalStorage("userLocation", "set", [userLocation.lat, userLocation.lng]);
+        }
+        setUserLocationEditing(!userLocationEditing);
+    }
 
   return (
-    <Box className={className}>
+    <Box className={className} editing={userLocationEditing}>
+      <ButtonStyled variant="tertiary" onClick={handleUserLocationEditingToggle}>
+          { userLocationEditing ? "Zapisz lokację użytkownika" : "Ustaw lokację użytkownika"}
+      </ButtonStyled>
       <MapContainer
         center={
-          (userLocation && [userLocation.lat, userLocation.lng]) || position
+          position
         }
         zoom={12}
       >
@@ -48,11 +56,7 @@ function Map({ className, universities }) {
             </Marker>
           );
         })}
-        <Marker position={[userLocation.lat, userLocation.lng]} icon={redIcon}>
-          <Popup>
-            Twoja lokalizacja
-          </Popup>
-        </Marker>
+        <MapUserMarker userLocationEditing={userLocationEditing} userLocation={userLocation} setUserLocation={setUserLocation} />
       </MapContainer>
     </Box>
   );
