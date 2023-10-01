@@ -19,7 +19,7 @@ const VisibleInput = styled.div`
   align-items: center;
   padding: 10px 8px;
   gap: 12px;
-  background: var(--primary-190);
+  background-color: var(--primary-190);
   border-radius: var(--border-radius-1);
 
   ${({ size }) =>
@@ -27,6 +27,14 @@ const VisibleInput = styled.div`
     css`
       padding: 2px 4px;
       gap: 4px;
+    `}
+
+  ${({ isNeutral }) =>
+    isNeutral &&
+    css`
+      /* background: var(--neutral-190); */
+      background-color: transparent;
+      box-shadow: 0 0 0 1px var(--neutral-180);
     `}
 `;
 
@@ -86,7 +94,7 @@ function NumberStepper({
         value={value}
         onChange={onChange}
       />
-      <VisibleInput size={size}>
+      <VisibleInput size={size} isNeutral={!value}>
         {/* disabled state */}
         <StepperButton
           type="button"
