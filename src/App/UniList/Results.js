@@ -63,6 +63,7 @@ function Results({
                   location={result.address.city}
                   isFavorite={result.isFavourite}
                   courses={result.courseDegrees}
+                  rating={result.rating}
                   {...result}
                 />
               ))}

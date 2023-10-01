@@ -27,6 +27,21 @@ const FavoriteIcon = styled(Icon)`
   top: 8px;
   right: 8px;
 `;
+const RatingIcon = styled.div`
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: ${props => props.color || 'white'};
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--neutral-200);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const FlexTypography = styled(Typography)`
   display: flex;
@@ -52,10 +67,25 @@ function Result({
   location,
   isFavorite: initIsFavorite,
   courses,
+  rating,
   ...rest
 }) {
   const [showModal, setShowModal] = useState(false);
   const [isFavorite, setIsFavorite] = useState(initIsFavorite);
+
+  function getRatingColor() {
+    if (rating <= 100 && rating >= 75) {
+      return '#93e08c'
+    }else if (rating <= 75 && rating >= 50) {
+      return '#cbdd63'
+    }else if (rating <= 50 && rating >= 25) {
+      return '#facc2b'
+    }
+    else if (rating <= 25 && rating >= 0) {
+      return '#ee7575'
+    }
+    return "#f4f9fc";
+  }
 
   return (
     <>
@@ -86,6 +116,10 @@ function Result({
             setIsFavorite(!isFavorite);
           }}
         />
+        <RatingIcon
+            color={getRatingColor()}
+            size={20}
+        >{rating}</RatingIcon>
         <Flexbox
           flexDirection="column"
           gap={4}
