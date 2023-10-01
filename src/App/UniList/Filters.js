@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import T from "prop-types";
 import styled from "styled-components/macro";
 import Typography from "commons/components/Typography";
@@ -19,7 +19,24 @@ const FlexboxStyled = styled(Flexbox)`
 
 function Filters({ className }) {
   const [filters, setFilters] = useState({});
+  const [userLocation, setUserLocation] = useState({
+    lat: 50.06143,
+    lng: 19.93658,
+  });
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error("Error getting user location:", error);
+        }
+    );
+  }, []);
   async function updateFilters(id, value) {
     let newValue;
 
@@ -47,6 +64,25 @@ function Filters({ className }) {
             onChange={(value) => updateFilters(el.id, value)}
           />
         ))}
+        <Filter
+            id={"distance"}
+            label={"Odległość"}
+            type={"number"}
+            step={30}
+            key={"distance"}
+            value={filters["distance"] ? filters["distance"].distance : 0}
+            max={10000}
+            onChange={(value) => {
+              const result = {
+                userCoordinates: {
+                  latitude: userLocation.lat,
+                  longitude: userLocation.lng
+                },
+                distance: value
+              }
+              setFilters({...filters, distance: result})
+            }}
+        />
       </FlexboxStyled>
     </Box>
   );
