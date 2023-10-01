@@ -8,6 +8,7 @@ import Loader from "commons/components/Loader";
 
 const Box = styled.div`
   width: 100%;
+  height: 80vh;
   overflow-y: auto;
   position: relative;
   padding: 16px;
