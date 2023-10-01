@@ -18,24 +18,10 @@ const FlexboxStyled = styled(Flexbox)`
 `;
 
 function Filters({ className, filters, setFilters }) {
-  const [userLocation, setUserLocation] = useState({
-    lat: 50.06143,
-    lng: 19.93658,
-  });
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setUserLocation({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      },
-      (error) => {
-        console.error("Error getting user location:", error);
-      }
-    );
-  }, []);
+  const userLocation = {
+      lat: 50.067469,
+      lng: 19.991694,
+  };
 
   function updateFilters(id, value) {
     let newValue;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import T from "prop-types";
 import styled from "styled-components/macro";
+import L from 'leaflet';
 
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
@@ -13,24 +14,20 @@ const Box = styled.div`
 
 function Map({ className, universities }) {
   const position = [50.06143, 19.93658];
-  const [userLocation, setUserLocation] = useState({
-    lat: 50.06143,
-    lng: 19.93658,
-  });
+  const userLocation = {
+    lat: 50.067469,
+    lng: 19.991694,
+  };
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setUserLocation({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      },
-      (error) => {
-        console.error("Error getting user location:", error);
-      }
-    );
-  }, []);
+
+  const redIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+    shadowAnchor: [12, 41]
+  });
 
   return (
     <Box className={className}>
@@ -51,6 +48,11 @@ function Map({ className, universities }) {
             </Marker>
           );
         })}
+        <Marker position={[userLocation.lat, userLocation.lng]} icon={redIcon}>
+          <Popup>
+            Twoja lokalizacja
+          </Popup>
+        </Marker>
       </MapContainer>
     </Box>
   );
