@@ -48,16 +48,16 @@ function Map({ className, universities, setFilters,
           },
         }))
       }else {
-        setFilters((currentFilters) => ({
-          ...currentFilters,
-          distance: {
-            distance: 0,
-            userCoordinates: {
-              latitude: userLocation.lat,
-              longitude: userLocation.lng,
-            },
-          },
-        }))
+        setFilters((currentFilters) => {
+              const {distance, ...newFilters} = currentFilters;
+              return {
+                ...newFilters, userCoordinates: {
+                  latitude: userLocation.lat,
+                  longitude: userLocation.lng,
+                }
+              }
+            }
+        )
       }
 
     }
