@@ -82,10 +82,16 @@ function Filters({ className, filters, setFilters }) {
               },
               distance: value,
             };
-            setFilters((currentFilters) => ({
-              ...currentFilters,
-              distance: result,
-            }));
+            setFilters((currentFilters) => {
+                if(result.distance === 0) {
+                    const {distance, ...newFilters} = currentFilters
+                    return {...newFilters}
+                }
+                return ({
+                    ...currentFilters,
+                    distance: result,
+                })
+            });
           }}
         />
         {filterStructure.map((el) => (
