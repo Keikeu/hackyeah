@@ -9,6 +9,7 @@ import callApi from "commons/util/callApi";
 import Modal from "commons/components/Modal";
 import Tag from "commons/components/Tag";
 import TextLink from "commons/components/TextLink";
+import Tooltip from "../../commons/components/Tooltip";
 
 const Box = styled(Flexbox)`
   position: relative;
@@ -28,9 +29,7 @@ const FavoriteIcon = styled(Icon)`
   right: 8px;
 `;
 const RatingIcon = styled.div`
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
+
   background: ${props => props.color || 'white'};
   width: 32px;
   height: 32px;
@@ -116,10 +115,16 @@ function Result({
             setIsFavorite(!isFavorite);
           }}
         />
-        <RatingIcon
+        <Tooltip label={"Ranking Perspektywy 2023"} triggerStyles={{
+          position: "absolute",
+          bottom: "8px",
+          right: "8px"
+        }}>
+          <RatingIcon
             color={getRatingColor()}
             size={20}
-        >{rating}</RatingIcon>
+          >{rating}</RatingIcon>
+        </Tooltip>
         <Flexbox
           flexDirection="column"
           gap={4}
